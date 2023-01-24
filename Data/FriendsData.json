@@ -1,0 +1,44 @@
+{"result":[
+    {
+        "name":"Raju",
+        "like":true,
+        "image":"https://randomuser.me/api/portraits/men/1.jpg",
+        "interest":[1,2,8,9],
+        "location":{
+            "latitude": 100,
+            "longitude": 10,
+            "latitudeDelta": 0.001,
+            "longitudeDelta": 0.001
+        }
+    },
+    {
+        "name":"Titu",
+        "like":true,
+        "image":"https://randomuser.me/api/portraits/men/2.jpg",
+        "interest":[1,5,8,9]
+    },
+    {
+        "name":"Shubham",
+        "like":false,
+        "image":"https://randomuser.me/api/portraits/men/3.jpg",
+        "interest":[1,5,8,9]
+    },
+    {
+        "name":"Rinki",
+        "like":true,
+        "image":"https://randomuser.me/api/portraits/women/2.jpg",
+        "interest":[1,5,8,9]
+    },
+    {
+        "name":"Pinki",
+        "like":false,
+        "image":"https://randomuser.me/api/portraits/women/3.jpg",
+        "interest":[1,5,8,9]
+    },
+    {
+        "name":"Chinki",
+        "like":false,
+        "image":"https://randomuser.me/api/portraits/women/4.jpg",
+        "interest":[1,2,8,9]
+    }
+]}
