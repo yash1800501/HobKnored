@@ -4,15 +4,10 @@ import MapView, { Marker, MarkerAnimated } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
 import data from'../Data/FriendsData.json';
-import { ScrollView } from "react-native";
+import { ScrollView, Text } from "react-native";
 
 const HomeScreen = () =>{
-    const [position, setPosition] = useState({
-        latitude: 100,
-        longitude: 10,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.001,
-      });
+    const [position, setPosition] = useState(data.result[0].location);
       const [position2, setPosition2] = useState({
         latitude: 100,
         longitude: 10,
@@ -54,7 +49,6 @@ const HomeScreen = () =>{
             loadingEnabled={true}
             
             >
-
             <Marker
                 anchor={{ x: 100 }}
                 image={{ uri: data.result[0].image }}
@@ -67,15 +61,22 @@ const HomeScreen = () =>{
                 description='This is a description'
                 coordinate={position}
             />
-            <Marker
-                // image={{ uri: data.result[1].image }}
-                style={{ 
-                    borderRadius:10,
-                }}
-                title='Yor are here'
-                description='This is a description'
-                coordinate={position2}
-            />
+            {[...Array(data.result.length)].map((value,index)=>(
+              <>
+                <Marker
+                  // anchor={{ x: 100 }}
+                  image={{ uri: data.result[index].image }}
+                  title={data.result[index].name}
+                  description='This is a description'
+                  coordinate={{
+                    latitude: data.result[index].location.latitude,
+                    longitude: data.result[index].location.longitude,
+                    latitudeDelta: data.result[index].location.latitudeDelta,
+                    longitudeDelta: data.result[index].location.longitudeDelta,
+                  }}
+                />
+              </>
+              ))}
             </MapView>
     );
 };
