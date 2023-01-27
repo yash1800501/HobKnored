@@ -36,6 +36,7 @@ const InputTextGradient = ({ style, issecureTextEntry, placeholderText, inputSty
           onKeyPress={keyPressAction}
           returnKeyType="next"
           maxLength={maxl}
+          multiline={true}
         />
 
       </View>
@@ -64,11 +65,12 @@ const styles = StyleSheet.create({
 
   ChildViewStyle: {
     width: '100%',
+    height:'100%',
   },
 
   TextInputStyleClass: {
     paddingHorizontal: 20,
-    height: 50,
+    height: '100%',
     width: '100%',
     // color:'#C4C4C4',
   }
