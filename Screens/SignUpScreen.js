@@ -11,7 +11,8 @@ const SignUpScreen = ({ route, navigation }) => {
 //   !modalVisible? setModalVisible(route.params):undefined
   return (
     <View style={{
-        flex: 1
+        flex: 1,
+        backgroundColor: "rgba(255, 255, 255, 0.3)",
     }}>
       <ImageBackground
           source={require('../assets/bottom.png')}
@@ -42,14 +43,14 @@ const SignUpScreen = ({ route, navigation }) => {
         style={{
             flex:1,
             height:'100%',
-            width:'100%'
+            width:'100%',
         }}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={{flexDirection:'row', justifyContent:'space-between',marginTop:30}}>
+        <View style={{flexDirection:'row', justifyContent:'space-between',marginTop:30,}}>
         
         <TouchableOpacity
             onPress={() => {
@@ -77,7 +78,7 @@ const SignUpScreen = ({ route, navigation }) => {
                 flex: 1,
                 justifyContent: 'flex-start',
                 alignItems: "center",
-                height:'100%'
+                height:'100%',
         }}
         >
             <View style={{

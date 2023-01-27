@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, ImageBackground, ScrollView, Text, View } from "react-native";
+import { Image, ImageBackground, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import MaskedView from '@react-native-masked-view/masked-view';
 import { responsiveFontSize, responsiveHeight, responsiveScreenFontSize, responsiveScreenHeight, responsiveScreenWidth } from "react-native-responsive-dimensions";
 import EnvironmentVariable from '../components/EnvironmentVariable'
@@ -11,7 +11,7 @@ import InterestCategoryData from "../Data/InterestCategory.json";
 
 
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
     
     const [width, setWidth] = React.useState(150)
     return (
@@ -59,35 +59,29 @@ const ProfileScreen = () => {
                 </Text>
                 <View
                 style={{
-                    // position: 'absolute',
-                    top: responsiveScreenHeight(33),
+                    marginTop: responsiveScreenHeight(33),
+                    flexDirection:'row',
+                    alignSelf:'center',
+                }}
+                >
+                <TouchableOpacity
+                onPress={()=>{
+                    navigation.navigate('AddPostScreen1')
                 }}
                 >
                 <Image source={require('../assets/add.png')}
                     style={{
-                        position: 'absolute',
-                        height: responsiveScreenHeight(12),
-                        width: responsiveScreenWidth(18),
-                        left: responsiveScreenWidth(20),
-                        top: responsiveScreenHeight(4.5),
+                        height: responsiveScreenHeight(8),
+                        width: responsiveScreenWidth(16),
+                        marginHorizontal:responsiveScreenHeight(1.5),
+                        marginTop:responsiveScreenHeight(6),
                     }}
                 />
-                <Image source={require('../assets/edit.png')}
-                    style={{
-                        position: 'absolute',
-                        height: responsiveScreenHeight(12),
-                        width: responsiveScreenWidth(18),
-                        left: responsiveScreenWidth(65),
-                        top: responsiveHeight(-2.5),
-                    }}
-                />
-                
+                </TouchableOpacity>
                 <View style={{
                     height: responsiveScreenWidth(30),
                     width: responsiveScreenWidth(30),
                     borderRadius: 100,
-                    borderWidth: 1,
-                    left: responsiveScreenWidth(35),
                 }}>
                     <Image source={{uri:data.result[1].image}}
                         style={
@@ -95,17 +89,31 @@ const ProfileScreen = () => {
                               width: responsiveScreenWidth(30),
                               height: responsiveScreenWidth(30),
                               borderRadius: 100,
-                              marginBottom: responsiveScreenHeight(10),
                             }
                           }
                     />
                 </View>
+                <Image source={require('../assets/edit.png')}
+                    style={{
+                        height: responsiveScreenHeight(9),
+                        width: responsiveScreenHeight(9),
+                        marginHorizontal:responsiveScreenHeight(1.5),
+                        marginTop:-responsiveScreenHeight(2),
+                    }}
+                />
+                </View>
+                <View
+                style={{
+                    width:'100%',
+                }}
+                >
                 <Text
                 style={{
                     width:responsiveScreenWidth(100),
                     textAlign:'center',
-                    paddingTop:10,
+                    marginTop:10,
                     fontSize:responsiveFontSize(2),
+                    color:'black',
                 }}
                 >
                     {data.result[0].name}
@@ -116,6 +124,7 @@ const ProfileScreen = () => {
                     width:responsiveScreenWidth(100),
                     textAlign:'center',
                     paddingTop:10,
+                    color:'black',
                     fontSize:responsiveFontSize(1.7),
                 }}
                 >
@@ -124,13 +133,11 @@ const ProfileScreen = () => {
                 </View>
                 
             <ScrollView style={{
-                    // flex:1,
-                    // justifyContent:'flex-start',
                     alignSelf: 'center',
                     height: '0%',
                     width: '100%',
                     alignContent: 'center',
-                    paddingTop: responsiveScreenHeight(40),
+                    paddingTop: responsiveScreenHeight(5),
                     marginBottom: responsiveScreenHeight(14),
                 }}>
                     <ScrollView 

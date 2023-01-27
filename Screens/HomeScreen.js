@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import MapView, { Marker, MarkerAnimated } from 'react-native-maps';
+import MapView, { MapMarker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
 import data from '../Data/FriendsData.json';
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { responsiveScreenHeight, responsiveScreenWidth, useResponsiveScreenHeight } from "react-native-responsive-dimensions";
 
 import {getDistance, getPreciseDistance} from 'geolib';
@@ -34,6 +34,7 @@ const HomeScreen = () => {
     })
   }, []);
   return (
+    <>
     <MapView
       style={{
         flex: 1
@@ -67,7 +68,7 @@ const HomeScreen = () => {
       }}
       />
       </TouchableOpacity>
-      <Marker
+      <MapMarker
         title='Yor are here'
         description='This is a description'
         coordinate={position}
@@ -75,7 +76,7 @@ const HomeScreen = () => {
         <View>
           <Image source={require('../assets/location.png')}
             style={{
-              width: responsiveScreenWidth(16),
+              width: responsiveScreenWidth(15.5),
               height: responsiveScreenWidth(18.5),
               position: 'absolute',
               left: -responsiveScreenWidth(8),
@@ -95,10 +96,10 @@ const HomeScreen = () => {
             }}
           />
         </View>
-      </Marker>
+      </MapMarker>
       {[...Array(data.result.length)].map((value, index) => (
         <>
-          <Marker
+          <MapMarker
             title={data.result[index].name}
             description='This is a description'
             coordinate={{
@@ -131,10 +132,11 @@ const HomeScreen = () => {
                 }}
               />
             </View>
-          </Marker>
+          </MapMarker>
         </>
       ))}
     </MapView>
+    </>
   );
 };
 
