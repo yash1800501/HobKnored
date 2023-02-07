@@ -1,72 +1,74 @@
 import CheckBox from '../components/CheckBox';
 import React from 'react';
-import { Image, ImageBackground, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import InputTextGradient from '../components/InputTextGradient';
-import { responsiveHeight } from 'react-native-responsive-dimensions';
+import { responsiveScreenHeight, responsiveScreenWidth, responsiveWidth } from 'react-native-responsive-dimensions';
 
 export default function App({ navigation }) {
+  const [isPoterate, setIsPoterate] = React.useState(false);
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require('../assets/upper.png')}
-        resizeMode="cover"
+    <View
+      onLayout={(native) => {
+        if (responsiveScreenWidth(100) > responsiveScreenHeight(100)) {
+          setIsPoterate(true)
+          console.log(isPoterate)
+        }
+        else {
+          setIsPoterate(false)
+          console.log(isPoterate)
+        }
+      }}
+    >
+      <View
         style={{
-          flex:1,
-          flexDirection:'column',
-          justifyContent:'center',
-          height:responsiveHeight(25),
+          height: responsiveScreenHeight(100),
+          width: responsiveScreenWidth(100),
         }}
       >
-        <SafeAreaView/>
-        <TouchableOpacity
-            onPress={() => {
-                navigation.goBack()
-            }}
-        >
-            <Image source={require('../assets/backButton.png')}/>
-          </TouchableOpacity>
-      <ImageBackground
-          source={require('../assets/bottom.png')}
-          resizeMode="cover"
-          style={{
-            flex:1,
-            flexDirection:'column-reverse',
-            height:'25%',
-          }}
-        >
-            <Text
-            style={{
-              textAlign:'center',
-              marginBottom:'4%',
-              color:'#5F5F5F'
-            }}
-            >Don’t have an account?<Text style={{color:'white',fontWeight:'900'}} 
-            onPress={()=>{
-              navigation.navigate('SignUpScreen');}
-            }> Sign up</Text></Text>
-        
+        {/* <ScrollView> */}
+        <View style={styles.container}>
+          <SafeAreaView />
+          <Image source={require('../assets/upper.png')}
 
-          <View style={{
-          flex:1,
-          justifyContent:'flex-start',
-          alignSelf:'flex-start',
-          paddingVertical:'20%',
-          paddingHorizontal:'10%',
-          width:'100%',
-          // backgroundColor:'#000'
-        }}>
-          <Text style={{
-            fontSize:24,
-            color:'#3AA8DF',
-            paddingBottom:60,
-          }}>SIGN IN</Text>
-          
-            <Text style={{
-              fontSize:16,
-              padding:5,
-              opacity:0.5,
-            }}>Email</Text>
-            {/* <TextInput style={{
+            resizeMethod={'scale'}
+            style={{
+              width: isPoterate ? responsiveScreenWidth(100) : responsiveScreenWidth(100),
+              position: 'absolute',
+              top: isPoterate ? responsiveScreenHeight(-45) : responsiveScreenHeight(0),
+              zIndex: -1,
+              height: isPoterate ? responsiveScreenHeight(100) : responsiveScreenHeight(25),
+            }}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack()
+            }}
+          >
+            <Image source={require('../assets/backButton.png')} />
+          </TouchableOpacity>
+          <ScrollView style={{ backgroundColor: 'transparent' }}>
+
+            <View style={{
+              flex: 1,
+              justifyContent: 'flex-start',
+              alignSelf: 'flex-start',
+              paddingVertical: responsiveScreenHeight(12),
+              paddingHorizontal: '10%',
+              width: '100%',
+              // backgroundColor:'#000'
+            }}>
+              <Text style={{
+                fontSize: 24,
+                color: '#3AA8DF',
+                paddingBottom: 60,
+              }}>SIGN IN</Text>
+
+              <Text style={{
+                fontSize: 16,
+                padding: 5,
+                opacity: 0.5,
+              }}>Email</Text>
+              {/* <TextInput style={{
               // width:,
               height:50,
               borderWidth:0.2,
@@ -83,115 +85,134 @@ export default function App({ navigation }) {
               elevation:5,
               
             }}/> */}
-            <InputTextGradient style={{
-              width:'100%',
-              height:50,
-              shadowColor:'black',
-              shadowRadius:3,
-              shadowOffset:{
-                height:1,
-                width:2,
-              },
-              shadowOpacity:1,
-              elevation:5,
-            }}
-            issecureTextEntry={false}/>
+              <InputTextGradient style={{
+                width: '100%',
+                height: 50,
+                shadowColor: 'black',
+                shadowRadius: 3,
+                shadowOffset: {
+                  height: 1,
+                  width: 2,
+                },
+                shadowOpacity: 1,
+                elevation: 5,
+              }}
+                issecureTextEntry={false}
 
-            <Text style={{
-              fontSize:16,
-              padding:4,
-              opacity:0.5,
-            }}>Password</Text>
-            <InputTextGradient style={{
-              shadowColor:'black',
-              shadowRadius:2,
-              shadowOffset:{
-                height:0,
-                width:2,
-              },
-              shadowOpacity:1,
-              elevation:5,
-              marginBottom:10,
-            }}
-            issecureTextEntry={true}/>
-            
-            <View style={styles.checkboxContainer}>
+              />
+
               <Text style={{
-                fontSize:12,
-                opacity:0.5,
+                fontSize: 16,
+                padding: 4,
+                opacity: 0.5,
+              }}>Password</Text>
+              <InputTextGradient style={{
+                shadowColor: 'black',
+                shadowRadius: 2,
+                shadowOffset: {
+                  height: 0,
+                  width: 2,
+                },
+                shadowOpacity: 1,
+                elevation: 5,
+                marginBottom: 10,
+                height: 50,
               }}
-              onPress={()=>{
-                navigation.navigate('ForgetPasswordScreen',{v:true})
-              }}
-              >Forgot password?</Text>
-              <View
-              style={{
-                flexDirection:'row'
-              }}>
-              <CheckBox style={{
-                height:20,
-                width:20,
-                borderRadius:5,
-                borderWidth:1,
-                marginHorizontal:10,
-                borderColor:'#868686'
-              }}/>
-              <Text style={styles.label}>Remember me</Text>
+                issecureTextEntry={true} />
+
+              <View style={styles.checkboxContainer}>
+                <Text style={{
+                  fontSize: 12,
+                  opacity: 0.5,
+                }}
+                  onPress={() => {
+                    navigation.navigate('ForgetPasswordScreen', { v: true })
+                  }}
+                >Forgot password?</Text>
+                <View
+                  style={{
+                    flexDirection: 'row'
+                  }}>
+                  <CheckBox style={{
+                    height: 20,
+                    width: 20,
+                    borderRadius: 5,
+                    borderWidth: 1,
+                    marginHorizontal: 10,
+                    borderColor: '#868686'
+                  }} />
+                  <Text style={styles.label}>Remember me</Text>
+                </View>
               </View>
+              <View style={{
+                paddingVertical: 50
+              }}>
+                <TouchableOpacity style={{
+                  width: '100%',
+                  height: 50,
+                  backgroundColor: '#3AA8DF',
+                  alignSelf: 'center',
+                  borderRadius: 20,
+
+                }}
+                  onPress={() => {
+                    navigation.navigate('BottomTabBar')
+                  }}
+                >
+                  <Text style={{
+                    alignSelf: 'center',
+                    justifyContent: 'center',
+                    paddingVertical: 14,
+                    fontSize: 16,
+                    color: 'white',
+                  }}>SIGN IN</Text>
+                </TouchableOpacity>
+              </View>
+
             </View>
-            <View style={{
-            paddingVertical:50
-          }}>
-            <TouchableOpacity style={{
-            width:'100%',
-            height:50,
-            backgroundColor:'#3AA8DF',
-            alignSelf:'center',
-            borderRadius:20,
+          </ScrollView>
+          <Image source={require('../assets/bottom.png')}
 
-          }}
-            onPress={()=>{
-              navigation.navigate('BottomTabBar')
+            resizeMethod={'scale'}
+            style={{
+              width: isPoterate ? responsiveScreenWidth(100) : responsiveScreenWidth(100),
+              position: 'absolute',
+              bottom: isPoterate ? responsiveScreenHeight(-45) : responsiveScreenHeight(0),
+              zIndex: -1,
+              height: isPoterate ? responsiveScreenHeight(100) : responsiveScreenHeight(25),
             }}
-          >
-            <Text style={{
-              alignSelf:'center',
-              justifyContent:'center',
-              paddingVertical:14,
-              fontSize:16,
-              color:'white',
-            }}>SIGN IN</Text>
-            </TouchableOpacity>
-          </View>
-            
+          />
+          <Text
+            style={{
+              textAlign: 'center',
+              marginBottom: '4%',
+              color: '#5F5F5F'
+            }}
+          >Don’t have an account?<Text style={{ color: 'white', fontWeight: '900' }}
+            onPress={() => {
+              navigation.navigate('SignUpScreen');
+            }
+            }> Sign up</Text></Text>
         </View>
-
-        
-          
-        
-
-        
-        </ImageBackground>
-      </ImageBackground>
+      </View>
     </View>
-    
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
   },
   checkboxContainer: {
     flexDirection: "row",
-    justifyContent:'space-between',
-    paddingTop:20
+    justifyContent: 'space-between',
+    paddingTop: 20
   },
   checkbox: {
-    padding:20,
+    padding: 20,
   },
   label: {
-    fontSize:12,
-    opacity:0.5,
+    fontSize: 12,
+    opacity: 0.5,
   },
 });

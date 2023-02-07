@@ -1,29 +1,38 @@
 import React from 'react';
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { responsiveScreenHeight, responsiveScreenWidth } from 'react-native-responsive-dimensions';
 import Button from '../components/Button';
 
 const StartScreen = ({ navigation }) => {
+  const [isPoterate, setIsPoterate] = React.useState(false);
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require('../assets/upper.png')}
-        resizeMode="cover"
-        style={{
-          flex:1,
-          justifyContent:'center',
-          height:'25%',
-        }}
-      >
-        <ImageBackground
-          source={require('../assets/bottom.png')}
-          resizeMode="cover"
-          style={{
-            flex:1,
-            flexDirection:'column-reverse',
-            height:'25%',
-          }}
-        >
-
+    <View style={styles.container}
+    
+    onLayout={(native)=>{
+      if(native.nativeEvent.layout.width>native.nativeEvent.layout.height)
+      {
+          setIsPoterate(true)
+          console.log(isPoterate)
+      }
+      else
+      {
+          setIsPoterate(false)
+          console.log(isPoterate)
+      }
+   }}
+    >
+      
+      <Image source={require('../assets/upper.png')} 
+            
+            resizeMethod={'scale'}
+            style={{
+                width: isPoterate? responsiveScreenWidth(100) : responsiveScreenWidth(100),
+                position:'absolute',
+                top: isPoterate? responsiveScreenHeight(-45) : responsiveScreenHeight(0),
+                zIndex:-1,
+                height:isPoterate? responsiveScreenHeight(100) : responsiveScreenHeight(25),
+            }}
+            />
         <View style={{
           flex:1,
           justifyContent:'center',
@@ -46,10 +55,17 @@ const StartScreen = ({ navigation }) => {
           />
 
         </View>
-
-        
-        </ImageBackground>
-      </ImageBackground>
+        <Image source={require('../assets/bottom.png')} 
+            
+            resizeMethod={'scale'}
+            style={{
+                width: isPoterate? responsiveScreenWidth(100) : responsiveScreenWidth(100),
+                position:'absolute',
+                bottom: isPoterate? responsiveScreenHeight(-45) : responsiveScreenHeight(0),
+                zIndex:-1,
+                height:isPoterate? responsiveScreenHeight(100) : responsiveScreenHeight(25),
+            }}
+            />
     </View>
     
   );

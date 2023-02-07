@@ -5,8 +5,8 @@
         "image":"https://randomuser.me/api/portraits/men/1.jpg",
         "interest":[1,2,8,9],
         "location":{
-            "latitude": 100,
-            "longitude": 10,
+            "latitude": 37.885834,
+            "longitude": -122.30641700000001,
             "latitudeDelta": 0.001,
             "longitudeDelta": 0.001
         }
@@ -15,30 +15,60 @@
         "name":"Titu",
         "like":true,
         "image":"https://randomuser.me/api/portraits/men/2.jpg",
-        "interest":[1,5,8,9]
+        "interest":[1,5,8,9],
+        "location":{
+            "latitude": 37.885834,
+            "longitude": -122.30641700000001,
+            "latitudeDelta": 0.001,
+            "longitudeDelta": 0.001
+        }
     },
     {
         "name":"Shubham",
         "like":false,
         "image":"https://randomuser.me/api/portraits/men/3.jpg",
-        "interest":[1,5,8,9]
+        "interest":[1,5,8,9],
+        "location":{
+            "latitude": 37.985834,
+            "longitude": -122.30641700000001,
+            "latitudeDelta": 0.001,
+            "longitudeDelta": 0.001
+        }
     },
     {
         "name":"Rinki",
         "like":true,
         "image":"https://randomuser.me/api/portraits/women/2.jpg",
-        "interest":[1,5,8,9]
+        "interest":[1,5,8,9],
+        "location":{
+            "latitude": 37.685834,
+            "longitude": -122.45141700000001,
+            "latitudeDelta": 0.001,
+            "longitudeDelta": 0.001
+        }
     },
     {
         "name":"Pinki",
         "like":false,
         "image":"https://randomuser.me/api/portraits/women/3.jpg",
-        "interest":[1,5,8,9]
+        "interest":[1,5,8,9],
+        "location":{
+            "latitude": 37.585834,
+            "longitude": -122.30641700000001,
+            "latitudeDelta": 0.001,
+            "longitudeDelta": 0.001
+        }
     },
     {
         "name":"Chinki",
         "like":false,
         "image":"https://randomuser.me/api/portraits/women/4.jpg",
-        "interest":[1,2,8,9]
+        "interest":[1,2,8,9],
+        "location":{
+            "latitude": 37.385834,
+            "longitude": -122.30641700000001,
+            "latitudeDelta": 0.001,
+            "longitudeDelta": 0.001
+        }
     }
 ]}

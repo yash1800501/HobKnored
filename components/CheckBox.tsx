@@ -4,7 +4,8 @@ import {
   StyleProp,
   ViewStyle,
   TouchableOpacity,
-  Text
+  Text,
+  Image
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -19,14 +20,14 @@ const CheckBox = ({ style }: Props) => {
   const [isChecked, setIsChecked] = useState(false)
   return (
 
-    <LinearGradient colors={['#DBE0E7', '#F8FBFF']} style={[styles.LinearGradientStyle, style]} >
+    <LinearGradient colors={isChecked? ['#3AA8DF', '#3AA8DF'] : ['#DBE0E7','#F8FBFF']} style={[styles.LinearGradientStyle, style,{borderColor: isChecked? '#3AA8DF':'black'}]} >
 
       <TouchableOpacity
         onPress={() => {
           isChecked ? setIsChecked(!isChecked) : setIsChecked(!isChecked);
         }}
       >
-        {isChecked ? <Text>✔️</Text> : <Text></Text>}
+        {isChecked ? <Image source={require('../assets/tick.png')} style={{height:15,width:15,margin:2}}/> : <Text></Text>}
       </TouchableOpacity>
 
     </LinearGradient>

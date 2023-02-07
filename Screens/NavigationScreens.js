@@ -15,6 +15,7 @@ import SignUpScreen2 from "./SignUpScreen2";
 import SignUpScreen3 from "./SignUpScreen3";
 import HomeScreen from './HomeScreen';
 import BottomTabBar from "../components/BottomTabBar";
+import AddPostScreen1 from './AddPostScreen1';
 
 const {Navigator, Screen} = createNativeStackNavigator();
 const NavigationScreen = () => {
@@ -52,7 +53,9 @@ const NavigationScreen = () => {
                     component={PasswordUpdatedScreen}/>
                 <Screen
                     name="SignUpScreen"
-                    component={SignUpScreen}/>
+                    component={SignUpScreen}
+                    // initialParams={{open:true}}
+                    />
                 <Screen
                         name="SignUpScreen2"
                         component={SignUpScreen2}/>
@@ -65,6 +68,9 @@ const NavigationScreen = () => {
                 <Screen
                         name="BottomTabBar"
                         component={BottomTabBar}/>
+                <Screen
+                        name="AddPostScreen1"
+                        component={AddPostScreen1}/>
             </Navigator>
         </NavigationContainer>
     );

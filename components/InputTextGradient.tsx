@@ -7,6 +7,7 @@ import {
   ViewStyle
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { responsiveScreenHeight } from "react-native-responsive-dimensions";
 
 
 type Props = {
@@ -36,6 +37,7 @@ const InputTextGradient = ({ style, issecureTextEntry, placeholderText, inputSty
           onKeyPress={keyPressAction}
           returnKeyType="next"
           maxLength={maxl}
+          multiline={true}
         />
 
       </View>
@@ -64,12 +66,14 @@ const styles = StyleSheet.create({
 
   ChildViewStyle: {
     width: '100%',
+    height:'100%',
   },
 
   TextInputStyleClass: {
     paddingHorizontal: 20,
-    height: 50,
     width: '100%',
+    justifyContent:'center',
+
     // color:'#C4C4C4',
   }
 
