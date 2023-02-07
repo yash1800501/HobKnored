@@ -53,6 +53,7 @@ const HomeScreen = () => {
         setCurrentlocation(false)
       }}
     >
+
       <TouchableOpacity
       onPress={()=>{
         setCurrentlocation(true)

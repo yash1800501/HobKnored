@@ -7,6 +7,7 @@ import {
   ViewStyle
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { responsiveScreenHeight } from "react-native-responsive-dimensions";
 
 
 type Props = {
@@ -70,8 +71,9 @@ const styles = StyleSheet.create({
 
   TextInputStyleClass: {
     paddingHorizontal: 20,
-    height: '100%',
     width: '100%',
+    justifyContent:'center',
+
     // color:'#C4C4C4',
   }
 

@@ -3,10 +3,12 @@ import { Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native"
 
 
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
+import { responsiveScreenHeight, responsiveScreenWidth } from "react-native-responsive-dimensions";
 
 const PhotoSelectedScreen = ( {navigation} ) => {
 
     const [imageUri, setimageUri] = useState('')
+    const [isPoterate, setIsPoterate] = useState(false);
 
     const openCamera = () => {
         let option = {
@@ -37,6 +39,7 @@ const PhotoSelectedScreen = ( {navigation} ) => {
             
         });
     };
+        
 
     const openGallery = () => {
         let option = {
@@ -65,17 +68,47 @@ const PhotoSelectedScreen = ( {navigation} ) => {
         });
     };
 
+    // if (responsiveScreenHeight<responsiveScreenWidth && isPoterate === true)
+    //     setIsPoterate(false)
 
     return(
-        <SafeAreaView style={{
+        <View
+         onLayout={(native)=>{
+            if(native.nativeEvent.layout.width>native.nativeEvent.layout.height)
+            {
+                setIsPoterate(true)
+                console.log(isPoterate)
+            }
+            else
+            {
+                setIsPoterate(false)
+                console.log(isPoterate)
+            }
+         }}
+         style={{
             flex:1,
             justifyContent:'center',
             alignSelf:'center',
             width:'100%',
           }}>
-        <View>
+            <Image source={require('../assets/upper.png')} 
+            
+            resizeMethod={'scale'}
+            style={{
+                width: isPoterate? responsiveScreenWidth(100) : responsiveScreenWidth(100),
+                position:'absolute',
+                top: isPoterate? responsiveScreenHeight(-45) : responsiveScreenHeight(0),
+                zIndex:-1,
+                height:isPoterate? responsiveScreenHeight(100) : responsiveScreenHeight(25),
+            }}
+            />
+        <View
+        style={{
+        }}
+        >
+            
             <TouchableOpacity style={{
-                width:'100%',
+                width:'50%',
                 height:50,
                 backgroundColor:'#3AA8DF',
                 alignSelf:'center',
@@ -91,16 +124,17 @@ const PhotoSelectedScreen = ( {navigation} ) => {
                 paddingVertical:13,
                 fontSize:16,
                 color:'white',
-                }}>LET’ BEGIN</Text>
+                }}>LET' BEGIN</Text>
             </TouchableOpacity>
         </View>
         <View>
             <TouchableOpacity style={{
-                width:'100%',
+                width:'50%',
                 height:50,
                 backgroundColor:'#3AA8DF',
                 alignSelf:'center',
                 borderRadius:20,
+                margin:10,
             }}
                 onPress={()=>{
                     openGallery();
@@ -124,7 +158,18 @@ const PhotoSelectedScreen = ( {navigation} ) => {
             alignSelf:'center'
         }}
         />
-    </SafeAreaView>
+        <Image source={require('../assets/bottom.png')} 
+            
+            resizeMethod={'scale'}
+            style={{
+                width: isPoterate? responsiveScreenWidth(100) : responsiveScreenWidth(100),
+                position:'absolute',
+                bottom: isPoterate? responsiveScreenHeight(-45) : responsiveScreenHeight(0),
+                zIndex:-1,
+                height:isPoterate? responsiveScreenHeight(105) : responsiveScreenHeight(25),
+            }}
+            />
+    </View>
     );
 }
 
