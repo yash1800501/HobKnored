@@ -7,13 +7,25 @@ import PendingFriendScreen from "./PendingFriendScreen";
 
 const FriendsScreen = () => {
     const [value, setValue] = React.useState(true);
+    const [isPoterate, setIsPoterate] = React.useState(false);
     return(
-        <View>
+        <View
+            onLayout={(native) => {
+                if (responsiveScreenWidth(100) > responsiveScreenHeight(100)) {
+                    setIsPoterate(true)
+                    console.log(isPoterate)
+                }
+                else {
+                    setIsPoterate(false)
+                    console.log(isPoterate)
+                }
+            }}
+        >
             
             <SafeAreaView style={{
                 justifyContent:'flex-start',
                 alignSelf:'center',
-                height:'100%',
+                height:isPoterate? responsiveScreenWidth(100) : responsiveScreenHeight(100),
                 width:'90%'
             }}>
                 <Text style={{
@@ -25,7 +37,7 @@ const FriendsScreen = () => {
                 <View>
                 <SwitchSelector
                     initial={0}
-                    height={responsiveScreenHeight(10)/2}
+                    height={isPoterate? responsiveScreenWidth(5) : responsiveScreenHeight(10)/2}
                     backgroundColor={'#DCDCDC'}
                     onPress={value=>setValue(value)}
                     textColor={'#3AA8DF'} //'#7a44cf'
@@ -48,8 +60,8 @@ const FriendsScreen = () => {
                     // flex:1,
                     justifyContent:'center',
                     alignSelf:'center',
-                    paddingTop:responsiveScreenHeight(4),
-                    height:responsiveScreenHeight(65)
+                    paddingTop:isPoterate? responsiveScreenWidth(4) : responsiveScreenHeight(4),
+                    height:isPoterate? responsiveScreenWidth(22) : responsiveScreenHeight(65),
                 }}
                 >
                 {value? <AllFriendsScreen/> : <PendingFriendScreen/>}

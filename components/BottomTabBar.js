@@ -9,29 +9,24 @@ import FriendsScreen from '../Screens/FriendsScreen';
 import SettingScreen from '../Screens/SettingScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
 
-
-
-type Props = {
-  style?: StyleProp<ViewStyle>;
-  valueText: string;
-  action: () => {};
-};
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
 
 const Tab = createBottomTabNavigator();
 const BottomTabBar = () => {
-  return (
+  const mode = useSelector((state) => {state.mode});
+  return ( 
     <Tab.Navigator
       screenOptions={{
         tabBarIconStyle: {},
         tabBarStyle: {
-
           position: 'absolute',
-          bottom: responsiveScreenHeight(2),
+          bottom: mode? responsiveScreenWidth(2) : responsiveScreenHeight(2),
           borderRadius: 25,
-          margin: responsiveScreenHeight(1),
-          paddingTop: responsiveScreenHeight(10) / 2,
-          paddingBottom: responsiveScreenHeight(10) / 2,
-          height: responsiveHeight(10),
+          margin: mode? responsiveScreenWidth(1) : responsiveScreenHeight(1),
+          paddingTop: mode? responsiveScreenWidth(5) : responsiveScreenHeight(10) / 2,
+          paddingBottom: mode? responsiveScreenWidth(5) : responsiveScreenHeight(10) / 2,
+          height: !mode? responsiveWidth(10) : responsiveHeight(10),
           shadowOffset: {
             height: 1,
             width: 1
@@ -44,7 +39,7 @@ const BottomTabBar = () => {
       }}>
       <Tab.Screen name="Home" component={HomeScreen}
         options={{
-          tabBarIcon: (tab) => (tab.focused ? <Image source={require('../assets/home2.png')} style={{ height: responsiveScreenHeight(4), width: responsiveScreenWidth(25), marginLeft: responsiveScreenWidth(12) }} /> : <Image source={require('../assets/home1.png')} style={{ height: responsiveScreenHeight(2.6), width: responsiveScreenWidth(5) }} />),
+          tabBarIcon: (tab) => (tab.focused ? <Image source={require('../assets/home2.png')} style={{ height: mode? responsiveScreenWidth(4) : responsiveScreenHeight(4), width: mode? responsiveScreenHeight(25) : responsiveScreenWidth(25), marginLeft: responsiveScreenWidth(12) }} /> : <Image source={require('../assets/home1.png')} style={{ height: responsiveScreenHeight(2.6), width: responsiveScreenWidth(5) }} />),
         }}
       />
       <Tab.Screen name="Friends" component={FriendsScreen}
@@ -69,6 +64,7 @@ const BottomTabBar = () => {
       />
 
     </Tab.Navigator>
+
   );
 };
 

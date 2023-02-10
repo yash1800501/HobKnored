@@ -1,14 +1,34 @@
 import React from "react";
-import { Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { responsiveScreenHeight, responsiveScreenWidth } from "react-native-responsive-dimensions";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/Button";
 import InputTextGradient from "../components/InputTextGradient";
 
+import {landscape,portrait} from '../State/action-creators/index';
 import data from '../Data/FriendsData.json'
 
 const AddPostScreen = ({navigation}) => {
+    const dispatch = useDispatch();
+    const mode = useSelector(state => state.mode);
     return (
-        <SafeAreaView>
+        <SafeAreaView
+        onLayout={(native) => {
+            if (responsiveScreenWidth(100) > responsiveScreenHeight(100)) {
+                dispatch(landscape(true))
+                console.log(mode)
+            }
+            else {
+                dispatch(portrait(false))
+                console.log(mode)
+            }
+        }}
+        scrollEventThrottle={(value) => {
+            setWidth(value)
+            console.log(value)
+        }}
+        >
+            <ScrollView>
             <View style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
@@ -30,7 +50,7 @@ const AddPostScreen = ({navigation}) => {
                     </TouchableOpacity>
                     <Text style={{
                         color: 'black',
-                        paddingTop: '6%',
+                        paddingTop: mode? responsiveScreenWidth(6) : responsiveScreenHeight(6),
                         fontSize: 20,
                     }}>Add Post</Text>
                 </View>
@@ -40,8 +60,6 @@ const AddPostScreen = ({navigation}) => {
                         paddingHorizontal: '5%',
                         borderRadius: 8,
                         fontSize: 18,
-                        // height:responsiveScreenHeight(5),
-                        // paddingTop:-9,
                     }}
                 />
             </View>
@@ -53,14 +71,14 @@ const AddPostScreen = ({navigation}) => {
             >
                 <Image source={{ uri: data.result[0].image }}
                     style={{
-                        width: responsiveScreenWidth(16),
-                        height: responsiveScreenHeight(8),
+                        width: mode? responsiveScreenWidth(16) : responsiveScreenHeight(16),
+                        height: mode? responsiveScreenHeight(8) : responsiveScreenWidth(8),
                         borderRadius: 1000,
                     }}
                 />
                 <Text style={{
                         color: 'rgba(0, 0, 0, 0.8)',
-                        paddingTop: '6%',
+                        paddingTop: mode? responsiveScreenWidth(6) : responsiveScreenHeight(6),
                         fontSize: 20,
                         paddingHorizontal: 20,
                     }}>{data.result[0].name}</Text>
@@ -69,11 +87,16 @@ const AddPostScreen = ({navigation}) => {
             placeholderText="What's Happening?"
             style={{
                 width:'90%',
-                height:responsiveScreenHeight(20),
+                height:mode? responsiveScreenHeight(20) : responsiveScreenWidth(20),
                 alignSelf:'center',
                 marginTop:20,
             }}
             />
+            <TouchableOpacity
+            onPress={() => {
+                navigation.navigate("AddPostPhoto");
+            }}
+            >
             <View
             style={{
                 flexDirection:'row',
@@ -81,19 +104,26 @@ const AddPostScreen = ({navigation}) => {
                 alignSelf:'center',
                 backgroundColor:'white',
                 borderRadius:10,
-                marginTop:responsiveScreenHeight(10),
-                paddingHorizontal:responsiveScreenWidth(4),
-                height:responsiveScreenHeight(6),
+                marginTop:mode? responsiveScreenHeight(10) : responsiveScreenWidth(10),
+                paddingHorizontal: mode?responsiveScreenWidth(4) : responsiveScreenHeight(4),
+                height: mode? responsiveScreenHeight(6) : responsiveScreenWidth(6),
             }}
             >
                 <Image source={require('../assets/photo.png')}
                 
                 style={{
-                    width:responsiveScreenWidth(12),
-                    height:responsiveScreenHeight(6),
+                    width: mode?responsiveScreenWidth(12) : responsiveScreenHeight(12),
+                    height: mode? responsiveScreenHeight(6) : responsiveScreenWidth(6),
                 }}/>
-                <Text style={{height:'100%',paddingTop:responsiveScreenHeight(2),paddingLeft:responsiveScreenWidth(3)}}>Photo</Text>
+                <Text style={{
+                    height:'100%',
+                    paddingTop:mode? responsiveScreenHeight(2) : responsiveScreenWidth(2),
+                    paddingLeft:responsiveScreenWidth(3)
+                    }}>
+                        Photo
+                </Text>
             </View>
+            </TouchableOpacity>
             <View
             style={{
                 flexDirection:'row',
@@ -101,18 +131,22 @@ const AddPostScreen = ({navigation}) => {
                 alignSelf:'center',
                 backgroundColor:'white',
                 borderRadius:10,
-                marginTop:10,
-                paddingHorizontal:responsiveScreenWidth(4),
-                height:responsiveScreenHeight(6)
+                marginTop:mode? responsiveScreenHeight(2) : responsiveScreenWidth(2),
+                paddingHorizontal: mode?responsiveScreenWidth(4) : responsiveScreenHeight(4),
+                height: mode? responsiveScreenHeight(6) : responsiveScreenWidth(6),
             }}
             >
                 <Image source={require('../assets/tagPeople.png')}
                 
                 style={{
-                    width:responsiveScreenWidth(12),
-                    height:responsiveScreenHeight(6),
+                    width: mode?responsiveScreenWidth(12) : responsiveScreenHeight(12),
+                    height: mode? responsiveScreenHeight(6) : responsiveScreenWidth(6),
                 }}/>
-                <Text style={{height:'100%',paddingTop:responsiveScreenHeight(2),paddingLeft:responsiveScreenWidth(3)}}>Tag People</Text>
+                <Text style={{
+                    height:'100%',
+                    paddingTop:mode? responsiveScreenHeight(2) : responsiveScreenWidth(2),
+                    paddingLeft:responsiveScreenWidth(3)
+                    }}>Tag People</Text>
             </View>
             <View
             style={{
@@ -121,18 +155,22 @@ const AddPostScreen = ({navigation}) => {
                 alignSelf:'center',
                 backgroundColor:'white',
                 borderRadius:10,
-                marginTop:10,
-                paddingHorizontal:responsiveScreenWidth(4),
-                height:responsiveScreenHeight(6)
+                marginTop:mode? responsiveScreenHeight(2) : responsiveScreenWidth(2),
+                paddingHorizontal: mode?responsiveScreenWidth(4) : responsiveScreenHeight(4),
+                height: mode? responsiveScreenHeight(6) : responsiveScreenWidth(6),
             }}
             >
                 <Image source={require('../assets/feelings.png')}
                 
                 style={{
-                    width:responsiveScreenWidth(12),
-                    height:responsiveScreenHeight(6),
+                    width: mode?responsiveScreenWidth(12) : responsiveScreenHeight(12),
+                    height: mode? responsiveScreenHeight(6) : responsiveScreenWidth(6),
                 }}/>
-                <Text style={{height:'100%',paddingTop:responsiveScreenHeight(2),paddingLeft:responsiveScreenWidth(3)}}>Feelings</Text>
+                <Text style={{
+                    height:'100%',
+                    paddingTop:mode? responsiveScreenHeight(2) : responsiveScreenWidth(2),
+                    paddingLeft:responsiveScreenWidth(3)
+                    }}>Feelings</Text>
             </View>
             <View
             style={{
@@ -141,18 +179,22 @@ const AddPostScreen = ({navigation}) => {
                 alignSelf:'center',
                 backgroundColor:'white',
                 borderRadius:10,
-                marginTop:10,
-                paddingHorizontal:responsiveScreenWidth(4),
-                height:responsiveScreenHeight(6)
+                marginTop:mode? responsiveScreenHeight(2) : responsiveScreenWidth(2),
+                paddingHorizontal: mode?responsiveScreenWidth(4) : responsiveScreenHeight(4),
+                height: mode? responsiveScreenHeight(6) : responsiveScreenWidth(6),
             }}
             >
                 <Image source={require('../assets/checkIn.png')}
                 
                 style={{
-                    width:responsiveScreenWidth(12),
-                    height:responsiveScreenHeight(6),
+                    width: mode?responsiveScreenWidth(12) : responsiveScreenHeight(12),
+                    height: mode? responsiveScreenHeight(6) : responsiveScreenWidth(6),
                 }}/>
-                <Text style={{height:'100%',paddingTop:responsiveScreenHeight(2),paddingLeft:responsiveScreenWidth(3)}}>Check In</Text>
+                <Text style={{
+                    height:'100%',
+                    paddingTop:mode? responsiveScreenHeight(2) : responsiveScreenWidth(2),
+                    paddingLeft:responsiveScreenWidth(3)
+                    }}>Check In</Text>
             </View>
             <View
             style={{
@@ -161,19 +203,24 @@ const AddPostScreen = ({navigation}) => {
                 alignSelf:'center',
                 backgroundColor:'white',
                 borderRadius:10,
-                marginTop:10,
-                paddingHorizontal:responsiveScreenWidth(4),
-                height:responsiveScreenHeight(6)
+                marginTop:mode? responsiveScreenHeight(2) : responsiveScreenWidth(2),
+                paddingHorizontal: mode?responsiveScreenWidth(4) : responsiveScreenHeight(4),
+                height: mode? responsiveScreenHeight(6) : responsiveScreenWidth(6),
             }}
             >
                 <Image source={require('../assets/backgroundColor.png')}
                 
                 style={{
-                    width:responsiveScreenWidth(12),
-                    height:responsiveScreenHeight(6),
+                    width: mode?responsiveScreenWidth(12) : responsiveScreenHeight(12),
+                    height: mode? responsiveScreenHeight(6) : responsiveScreenWidth(6),
                 }}/>
-                <Text style={{height:'100%',paddingTop:responsiveScreenHeight(2),paddingLeft:responsiveScreenWidth(3)}}>Background Color</Text>
+                <Text style={{
+                    height:'100%',
+                    paddingTop:mode? responsiveScreenHeight(2) : responsiveScreenWidth(2),
+                    paddingLeft:responsiveScreenWidth(3)
+                    }}>Background Color</Text>
             </View>
+            </ScrollView>
         </SafeAreaView>
     );
 }

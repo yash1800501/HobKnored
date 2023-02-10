@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
 import amountReducer from "./amountReducer";
+import phoneMode from './phoneMode';
 
 const reducers = combineReducers({
-    amount: amountReducer
+    amount: amountReducer,
+    mode: phoneMode
 })
 
 export default reducers

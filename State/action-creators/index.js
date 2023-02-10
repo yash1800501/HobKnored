@@ -16,3 +16,20 @@ export const withdrawMoney = (amount) => {
     }
 }
 
+export const portrait = (state) => {
+    return(dispatch) => {
+        dispatch({
+            type:'PORTRAIT',
+            payload: state
+        })
+    }
+}
+
+export const landscape = (state) => {
+    return(dispatch) => {
+        dispatch({
+            type:'LANDSCAPE',
+            payload: state
+        })
+    }
+}

@@ -12,6 +12,7 @@ import {getDistance, getPreciseDistance} from 'geolib';
 const HomeScreen = () => {
   const [position, setPosition] = useState(data.result[0].location);
   const [currentlocation, setCurrentlocation] = useState(true);
+  const [isPoterate, setIsPoterate] = useState(false);
 
   var dis = getDistance(
     {latitude: 20.0504188, longitude: 64.4139099},
@@ -36,6 +37,18 @@ const HomeScreen = () => {
   return (
     <>
     <MapView
+      onLayout={(native)=>{
+        if(native.nativeEvent.layout.width>native.nativeEvent.layout.height)
+        {
+            setIsPoterate(true)
+            console.log(isPoterate)
+        }
+        else
+        {
+            setIsPoterate(false)
+            console.log(isPoterate)
+        }
+     }}
       style={{
         flex: 1
       }}
@@ -61,8 +74,8 @@ const HomeScreen = () => {
       >
       <Image source={require('../assets/currentlocation.png')}
       style={{
-        width:responsiveScreenHeight(6),
-        height:responsiveScreenHeight(6.2),
+        width:isPoterate? responsiveScreenWidth(6) : responsiveScreenHeight(6),
+        height:isPoterate? responsiveScreenWidth(6.2) : responsiveScreenHeight(6.2),
         alignSelf:'flex-end',
         marginTop:60,
         marginRight:30
@@ -77,21 +90,21 @@ const HomeScreen = () => {
         <View>
           <Image source={require('../assets/location.png')}
             style={{
-              width: responsiveScreenWidth(15.5),
-              height: responsiveScreenWidth(18.5),
+              width: isPoterate? responsiveScreenHeight(15.5) : responsiveScreenWidth(15.5),
+              height: isPoterate? responsiveScreenHeight(18.5) : responsiveScreenWidth(18.5),
               position: 'absolute',
-              left: -responsiveScreenWidth(8),
+              left: isPoterate? -responsiveScreenHeight(8) : -responsiveScreenWidth(8),
               bottom: 0,
             }}
           />
           <Image source={{ uri: data.result[0].image }}
             style={{
               position: 'absolute',
-              width: responsiveScreenWidth(12),
-              height: responsiveScreenWidth(12),
+              width:isPoterate? responsiveScreenHeight(12) : responsiveScreenWidth(12),
+              height:isPoterate? responsiveScreenHeight(12) : responsiveScreenWidth(12),
               borderRadius: 100,
-              left: -responsiveScreenWidth(6.2),
-              top: -responsiveScreenWidth(16.5),
+              left: isPoterate? -responsiveScreenHeight(6.2): -responsiveScreenWidth(6.2),
+              top: isPoterate? -responsiveScreenHeight(16.5):-responsiveScreenWidth(16.5),
               borderWidth:2,
               borderColor:'white',
             }}
@@ -113,8 +126,8 @@ const HomeScreen = () => {
             <View>
               <Image source={require('../assets/location.png')}
                 style={{
-                  width: responsiveScreenWidth(15),
-                  height: responsiveScreenWidth(18.5),
+                  width: isPoterate? responsiveScreenHeight(15.5) : responsiveScreenWidth(15.5),
+                  height: isPoterate? responsiveScreenHeight(18.5) : responsiveScreenWidth(18.5),
                   position: 'absolute',
                   left: 0,
                   bottom: 0,
@@ -123,11 +136,11 @@ const HomeScreen = () => {
               <Image source={{ uri: data.result[index].image }}
                 style={{
                   position: 'absolute',
-                  width: responsiveScreenWidth(12),
-                  height: responsiveScreenWidth(12),
+                  width: isPoterate ? responsiveScreenHeight(12) : responsiveScreenWidth(12),
+                  height: isPoterate ? responsiveScreenHeight(12) : responsiveScreenWidth(12),
                   borderRadius: 100,
-                  left: responsiveScreenWidth(1.5),
-                  top: -responsiveScreenWidth(16.5),
+                  left: isPoterate ? responsiveScreenHeight(1.5) : responsiveScreenWidth(1.5),
+                  top: isPoterate ? -responsiveScreenHeight(16.5) : -responsiveScreenWidth(16.5),
                   borderWidth:2,
                   borderColor:'white',
                 }}

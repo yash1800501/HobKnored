@@ -6,6 +6,7 @@ import { responsiveScreenHeight, responsiveScreenWidth } from "react-native-resp
 
 const ProgressBarComponent = () => {
     const [WIDTH, setWIDTH] = React.useState<number>(0)
+    const [isPoterate, setIsPoterate] = React.useState(false);
     return (
         <View
             style={{
@@ -16,11 +17,21 @@ const ProgressBarComponent = () => {
                 width: responsiveScreenWidth(60),
 
             }}
+            onLayout={(native) => {
+                if (responsiveScreenWidth(100) > responsiveScreenHeight(100)) {
+                    setIsPoterate(true)
+                    console.log(isPoterate)
+                }
+                else {
+                    setIsPoterate(false)
+                    console.log(isPoterate)
+                }
+            }} 
         >
             <ImageBackground source={require('../assets/prop.png')}
                 style={{
-                    width: responsiveScreenWidth(15),
-                    height: responsiveScreenHeight(5),
+                    width: isPoterate? responsiveScreenHeight(15) : responsiveScreenWidth(15),
+                    height: isPoterate? responsiveScreenWidth(5) : responsiveScreenHeight(5),
                     marginLeft: responsiveScreenWidth(WIDTH * 50),
                 }}>
                 <Text style={{

@@ -16,16 +16,27 @@ const ComboBox = ({ x, y }: Props) => {
     const [value, setValue] = React.useState(data[0]);
     const [width, setWidth] = React.useState(x);
     const [height, setheight] = React.useState(y);
+    const [isPoterate, setIsPoterate] = React.useState(false);
     console.log("hello1", height, width)
     return (
         <View
             style={{
                 backgroundColor: '#EFF1F5',
                 borderRadius: 10,
-                width: '35%',
-                height: '100%',
-                padding: 5
-            }}>
+                width: isPoterate? responsiveScreenHeight(30) : responsiveScreenWidth(30),
+                height: isPoterate? responsiveScreenWidth(6) : responsiveScreenHeight(6),
+            }}
+            onLayout={(native) => {
+                if (responsiveScreenWidth(100) > responsiveScreenHeight(100)) {
+                    setIsPoterate(true)
+                    console.log(isPoterate)
+                }
+                else {
+                    setIsPoterate(false)
+                    console.log(isPoterate)
+                }
+            }} 
+            >
             <TouchableOpacity
                 onPress={() => {
                     setOpen(true);
@@ -40,19 +51,18 @@ const ComboBox = ({ x, y }: Props) => {
             >
                 <Text
                     style={{
-                        paddingTop: '15%',
-                        alignSelf: 'center',
                         textAlign: 'center',
-                        justifyContent: 'center',
                         height: '100%',
-                        width: '40%',
+                        width: '60%',
+                        marginTop: isPoterate? responsiveScreenWidth(1.8) : responsiveScreenHeight(1.8),
                     }}
                 >
                     {value}
                 </Text>
-                <Image source={require('../assets/dropDown.png')} style={{ width: responsiveScreenWidth(3), height: responsiveScreenHeight(1), marginTop: responsiveScreenHeight(2) }} />
+                <Image source={require('../assets/dropDown.png')} style={{ width: isPoterate? responsiveScreenHeight(3) : responsiveScreenWidth(3), height: isPoterate? responsiveScreenWidth(1) : responsiveScreenHeight(1), marginTop: isPoterate? responsiveScreenWidth(2.5) : responsiveScreenHeight(2.5) }} />
             </TouchableOpacity>
             <Modal
+                supportedOrientations={["portrait","landscape"]}
 
                 style={{
                     // flex:1,
@@ -69,8 +79,8 @@ const ComboBox = ({ x, y }: Props) => {
                 }}>
                 <View
                     style={{
-                        paddingLeft: '15%',
-                        paddingTop: '140%',
+                        paddingLeft: isPoterate? responsiveScreenHeight(15) : responsiveScreenWidth(15),
+                        paddingTop:isPoterate? responsiveScreenHeight(50) : responsiveScreenHeight(50),
 
                     }}
                 >

@@ -8,16 +8,33 @@ import data from'../Data/FriendsData.json';
 
 import InterestCategory from "../components/InterestCategory";
 import InterestCategoryData from "../Data/InterestCategory.json";
+import { useDispatch, useSelector } from "react-redux";
 
+import {landscape,portrait} from '../State/action-creators/index';
+import { bindActionCreators } from "redux";
 
 
 const ProfileScreen = ({ navigation }) => {
-    
+    const mode = useSelector(state => state.mode);
     const [width, setWidth] = React.useState(150)
+    const [isPoterate, setIsPoterate] = React.useState(false);
+    const dispatch = useDispatch();
     return (
         <ScrollView
             style={{
                 height: responsiveScreenHeight(100),
+            }}
+            onLayout={(native) => {
+                if (responsiveScreenWidth(100) > responsiveScreenHeight(100)) {
+                    setIsPoterate(true)
+                    dispatch(landscape(true))
+                    console.log(isPoterate,mode)
+                }
+                else {
+                    dispatch(portrait(false))
+                    setIsPoterate(false)
+                    console.log(isPoterate,mode)
+                }
             }}
             scrollEventThrottle={(value) => {
                 setWidth(value)
@@ -27,11 +44,11 @@ const ProfileScreen = ({ navigation }) => {
             <ScrollView
                 style={{
                     position: 'absolute',
-                    height: responsiveScreenHeight(60),
-                    width: responsiveScreenWidth(width),
+                    height: !mode? responsiveScreenWidth(60*2) : responsiveScreenHeight(60),
+                    width: isPoterate?  responsiveScreenHeight(width*2): responsiveScreenWidth(width),
                     borderBottomRightRadius: responsiveScreenWidth(1000),
                     right: responsiveScreenWidth(-30),
-                    top: responsiveScreenHeight(-15),
+                    top: isPoterate? responsiveScreenWidth(-60) : responsiveScreenHeight(-15),
                     backgroundColor:'black'
                 }}
                 scrollEnabled={false}
@@ -39,10 +56,10 @@ const ProfileScreen = ({ navigation }) => {
                 <Image source={require('../assets/bg.png')}
                     style={{
                         width: responsiveScreenWidth(100),
-                        height: responsiveHeight(50),
+                        height: isPoterate? responsiveScreenWidth(60) :responsiveHeight(50),
                         position: 'absolute',
                         right: responsiveScreenWidth(30),
-                        top: responsiveHeight(10),
+                        top: isPoterate? responsiveScreenWidth(60) : responsiveHeight(10),
                     }}
                 />
             </ScrollView>
@@ -59,7 +76,7 @@ const ProfileScreen = ({ navigation }) => {
                 </Text>
                 <View
                 style={{
-                    marginTop: responsiveScreenHeight(33),
+                    marginTop: isPoterate? responsiveScreenWidth(33) : responsiveScreenHeight(33),
                     flexDirection:'row',
                     alignSelf:'center',
                 }}
@@ -71,34 +88,35 @@ const ProfileScreen = ({ navigation }) => {
                 >
                 <Image source={require('../assets/add.png')}
                     style={{
-                        height: responsiveScreenHeight(8),
-                        width: responsiveScreenWidth(16),
-                        marginHorizontal:responsiveScreenHeight(1.5),
-                        marginTop:responsiveScreenHeight(6),
+                        height: isPoterate? responsiveScreenWidth(10) : responsiveScreenHeight(8),
+                        width: isPoterate? responsiveScreenHeight(18) : responsiveScreenWidth(16),
+                        marginHorizontal:isPoterate? responsiveScreenWidth(1.5) : responsiveScreenHeight(1.5),
+                        marginTop:isPoterate? responsiveScreenWidth(20) : responsiveScreenHeight(6),
                     }}
                 />
                 </TouchableOpacity>
                 <View style={{
-                    height: responsiveScreenWidth(30),
-                    width: responsiveScreenWidth(30),
+                    height: isPoterate? responsiveScreenHeight(40) : responsiveScreenWidth(30),
+                    width: isPoterate? responsiveScreenHeight(40) : responsiveScreenWidth(30),
                     borderRadius: 100,
                 }}>
                     <Image source={{uri:data.result[1].image}}
                         style={
                             {
-                              width: responsiveScreenWidth(30),
-                              height: responsiveScreenWidth(30),
+                              width: isPoterate? responsiveScreenHeight(40) : responsiveScreenWidth(30),
+                              height: isPoterate? responsiveScreenHeight(40) : responsiveScreenWidth(30),
                               borderRadius: 100,
+                              marginTop: isPoterate? responsiveScreenWidth(12) : undefined
                             }
                           }
                     />
                 </View>
                 <Image source={require('../assets/edit.png')}
                     style={{
-                        height: responsiveScreenHeight(9),
-                        width: responsiveScreenHeight(9),
-                        marginHorizontal:responsiveScreenHeight(1.5),
-                        marginTop:-responsiveScreenHeight(2),
+                        height: isPoterate? responsiveScreenWidth(10) : responsiveScreenHeight(8),
+                        width: isPoterate? responsiveScreenHeight(20) : responsiveScreenWidth(16),
+                        marginHorizontal: isPoterate? responsiveScreenWidth(1.5) : responsiveScreenHeight(1.5),
+                        marginTop:isPoterate? responsiveScreenWidth(8) : -responsiveScreenHeight(2),
                     }}
                 />
                 </View>

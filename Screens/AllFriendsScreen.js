@@ -5,7 +5,8 @@ import data from '../Data/FriendsData.json';
 
 const AllFriendsScreen = () => {
   const [like, setLike] = React.useState(true);
-  const [likeArray, setLikeArray] = React.useState(data.result)
+  const [likeArray, setLikeArray] = React.useState(data.result);
+  const [isPoterate, setIsPoterate] = React.useState(false);
   // setLikeArray(data.result[0].like)
   return (
     <View style={{
@@ -13,8 +14,20 @@ const AllFriendsScreen = () => {
       justifyContent: 'center',
       alignSelf: 'center',
       width: '100%',
-      height: responsiveScreenHeight(1),
-    }}>
+      height: responsiveScreenHeight(0),
+      // backgroundColor:'black',
+    }}
+    onLayout={(native) => {
+      if (native.nativeEvent.layout.width > native.nativeEvent.layout.height) {
+          setIsPoterate(true)
+          console.log(isPoterate)
+      }
+      else {
+          setIsPoterate(false)
+          console.log(isPoterate)
+      }
+  }}
+    >
       <FlatList
         showsVerticalScrollIndicator={false}
         data={likeArray}
@@ -26,10 +39,10 @@ const AllFriendsScreen = () => {
             style={{
               flex: 1,
               justifyContent: 'space-around',
-              paddingTop: responsiveScreenHeight(1.5),
-              marginBottom: responsiveScreenHeight(3) / 2,
+              paddingTop: isPoterate? responsiveScreenWidth(1.5) : responsiveScreenHeight(1.5),
+              marginBottom: isPoterate? responsiveScreenWidth(1.5) : responsiveScreenHeight(3) / 2,
               width: responsiveScreenWidth(90),
-              height: responsiveScreenHeight(10),
+              height:isPoterate? responsiveScreenWidth(10) : responsiveScreenHeight(10),
               borderRadius: 10,
               flexDirection: 'row',
               backgroundColor: 'white',
@@ -37,10 +50,10 @@ const AllFriendsScreen = () => {
           >
             <Image style={
               {
-                width: responsiveScreenWidth(14),
-                height: responsiveScreenHeight(7),
+                width: isPoterate? responsiveScreenHeight(14) : responsiveScreenWidth(14),
+                height:isPoterate? responsiveScreenWidth(7) : responsiveScreenHeight(7),
                 borderRadius: 100,
-                marginBottom: responsiveScreenHeight(10),
+                marginBottom: isPoterate? responsiveScreenWidth(10) : responsiveScreenHeight(10),
               }
             }
               source={{
@@ -56,7 +69,7 @@ const AllFriendsScreen = () => {
             >
               <Text style={{
                 fontSize: responsiveScreenFontSize(2.5),
-                paddingTop: responsiveScreenHeight(1.5),
+                paddingTop: isPoterate? responsiveScreenWidth(1.5) : responsiveScreenHeight(1.5),
               }}>{element.item.name}</Text>
               <TouchableOpacity
                 onPress={() => {
@@ -75,7 +88,7 @@ const AllFriendsScreen = () => {
               >
                 <Image
                   style={{
-                    marginTop: responsiveScreenHeight(1.5),
+                    marginTop: isPoterate? responsiveScreenWidth(1.5) : responsiveScreenHeight(1.5),
                   }}
                   source={data.result[element.index].like && likeArray[element.index].like ? require('../assets/like.png') : require('../assets/notLike.png')} />
               </TouchableOpacity>

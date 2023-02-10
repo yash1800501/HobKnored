@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleProp, Text, TouchableOpacity, View, ViewStyle } from "react-native";
-import { responsiveHeight } from "react-native-responsive-dimensions";
+import { responsiveHeight, responsiveScreenHeight, responsiveScreenWidth } from "react-native-responsive-dimensions";
 
 
 type Props = {
@@ -10,13 +10,25 @@ type Props = {
   };
 
 const Button = ({valueText, action, style}:Props) => {
+  const [isPoterate, setIsPoterate] = React.useState(false);
     return(
-        <View style={{
+        <View 
+        onLayout={(native) => {
+          if (responsiveScreenWidth(100) > responsiveScreenHeight(100)) {
+              setIsPoterate(true)
+              console.log("asas",isPoterate)
+          }
+          else {
+              setIsPoterate(false)
+              console.log("asas",isPoterate)
+          }
+      }}
+          style={{
             paddingTop:responsiveHeight(1),
           }}>
             <TouchableOpacity style={[{
             width:'100%',
-            height:responsiveHeight(6),
+            height:isPoterate? responsiveScreenWidth(6) : responsiveScreenHeight(6),
             backgroundColor:'#3AA8DF',
             alignSelf:'center',
             borderRadius:20,
@@ -26,7 +38,7 @@ const Button = ({valueText, action, style}:Props) => {
           >
             <Text style={{
               textAlign:'center',
-              marginVertical:responsiveHeight(1.7),
+              marginVertical:isPoterate? responsiveScreenWidth(1.7) : responsiveScreenHeight(1.7),
               fontSize:16,
               color:'white',
             }}>{valueText}</Text>
