@@ -10,7 +10,7 @@ const AddPostPhoto = ({navigation}) => {
     const [imageUri, setimageUri] = React.useState('')
     const [isPoterate, setIsPoterate] = React.useState(false);
     const [arrayCount,setArrayCount] = React.useState(0);
-    var [selectedArray, setselectedArray] = React.useState([]);
+    var [selectedArray, setselectedArray] = React.useState(Array());
     const openGallery = () => {
         let option = {
             storageOption: {
@@ -30,16 +30,30 @@ const AddPostPhoto = ({navigation}) => {
             else if(response.customButtom) {
                 console.log('User tab on customButton', response.customButtom);
             }
-            else {
-                const source = {uri: response.assets[0].uri}
+            else if(response.assets) {
+                const source = {uri: response.assets[0].uri};
                 setimageUri(source);
-                setselectedArray(selectedArray.concat(imageUri))
-                
+                setselectedArray(selectedArray.concat(imageUri));
+                setArrayCount(arrayCount+1);
+            }
+            else {
+                const source = {uri: response.assets[0].uri};
+                setimageUri(source);
+                setselectedArray(selectedArray.concat(imageUri));
             }
         });
     };
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      onLayout={native => {
+        if (responsiveScreenWidth(100) > responsiveScreenHeight(100)) {
+          setIsPoterate(true);
+          console.log(isPoterate);
+        } else {
+          setIsPoterate(false);
+          console.log(isPoterate);
+        }
+      }}>
       <ScrollView>
         <TouchableOpacity
           style={{}}
@@ -49,51 +63,62 @@ const AddPostPhoto = ({navigation}) => {
           <Image source={require('../assets/backButton.png')} />
         </TouchableOpacity>
         <View
-        style={{
-            flexDirection:'row',
-            width:responsiveScreenWidth(100),
-            flexWrap:'wrap'
-        }}
-        >
-        {[...Array(arrayCount)].map((_, index) =>
-        (
-            <Image source={selectedArray[index+1]}
+          style={{
+            flexDirection: 'row',
+            width: responsiveScreenWidth(100),
+            flexWrap: 'wrap',
+          }}>
+          {[...Array(arrayCount)].map((_, index) => {
+            // if(arrayCount == 0)
+            console.log(index);
+
+            return (
+              <Image
+                source={selectedArray[index + 1] || imageUri}
+                style={{
+                  height: responsiveScreenHeight(80) / 5.5,
+                  width: responsiveScreenWidth(100) / 3.5,
+                  borderRadius: 10,
+                  margin: responsiveScreenWidth(2),
+                }}
+              />
+            );
+          })}
+          <View
             style={{
-                height:responsiveScreenHeight(80)/5.5,
-                width:responsiveScreenWidth(100)/3.5,
-                borderRadius:10,
-                margin:responsiveScreenWidth(2),
-            }}
-            />
-          ))}
-        <View
-            style={{
-                borderStyle:'dashed',
-                borderRadius:10,
-                borderWidth:2,
-                height:responsiveScreenHeight(80)/5.5,
-                width:responsiveScreenWidth(100)/3.5,
-                borderColor:'rgba(58, 168, 223, 1)',
-                backgroundColor:'rgba(58, 168, 223, 0.08)',
-                margin:responsiveScreenWidth(2.5),
-            }}
-        >
+              borderStyle: 'dashed',
+              borderRadius: 10,
+              borderWidth: 2,
+              height: responsiveScreenHeight(80) / 5.5,
+              width: responsiveScreenWidth(100) / 3.5,
+              borderColor: 'rgba(58, 168, 223, 1)',
+              backgroundColor: 'rgba(58, 168, 223, 0.08)',
+              margin: responsiveScreenWidth(2.5),
+            }}>
             <Text
-            style={{
-                flex:1,
-                justifyContent:'center',
-                color:'rgba(58, 168, 223, 1)',
-                alignSelf:'center',
-                paddingTop:responsiveScreenHeight(4.5),
-                fontSize:40,
-            }}
-            onPress={(event)=>{
-                setArrayCount(arrayCount+1);
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                color: 'rgba(58, 168, 223, 1)',
+                alignSelf: 'center',
+                paddingTop: responsiveScreenHeight(4.5),
+                fontSize: 40,
+              }}
+              onPress={event => {
+                // if(arrayCount == 0)
+                // {
+                //     setArrayCount(arrayCount+2);
+                // }
+                // else
+                // {
+                //     setArrayCount(arrayCount+1);
+                // }
                 openGallery();
-                console.log(selectedArray)
-            }}
-            >+</Text>
-        </View>
+                console.log(selectedArray);
+              }}>
+              +
+            </Text>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -27,7 +27,7 @@ const CheckBox = ({ style }: Props) => {
           isChecked ? setIsChecked(!isChecked) : setIsChecked(!isChecked);
         }}
       >
-        {isChecked ? <Image source={require('../assets/tick.png')} style={{height:15,width:15,margin:2}}/> : <Text></Text>}
+        {isChecked ? <Image source={require('../assets/tick.png')} style={{height:10,width:10,margin:4}}/> : <Text></Text>}
       </TouchableOpacity>
 
     </LinearGradient>

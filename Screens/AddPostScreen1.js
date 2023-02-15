@@ -124,6 +124,11 @@ const AddPostScreen = ({navigation}) => {
                 </Text>
             </View>
             </TouchableOpacity>
+            <TouchableOpacity
+            onPress={()=>{
+                navigation.navigate("AddPostTagFriend");
+            }}
+            >
             <View
             style={{
                 flexDirection:'row',
@@ -148,6 +153,9 @@ const AddPostScreen = ({navigation}) => {
                     paddingLeft:responsiveScreenWidth(3)
                     }}>Tag People</Text>
             </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+            onPress={()=>{navigation.navigate("AddPostFeelings");}}>
             <View
             style={{
                 flexDirection:'row',
@@ -172,6 +180,7 @@ const AddPostScreen = ({navigation}) => {
                     paddingLeft:responsiveScreenWidth(3)
                     }}>Feelings</Text>
             </View>
+            </TouchableOpacity>
             <View
             style={{
                 flexDirection:'row',
