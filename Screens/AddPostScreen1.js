@@ -181,6 +181,11 @@ const AddPostScreen = ({navigation}) => {
                     }}>Feelings</Text>
             </View>
             </TouchableOpacity>
+            <TouchableOpacity
+            onPress={()=>{
+                navigation.navigate("AddPostAddLocation");
+            }}
+            >
             <View
             style={{
                 flexDirection:'row',
@@ -205,6 +210,7 @@ const AddPostScreen = ({navigation}) => {
                     paddingLeft:responsiveScreenWidth(3)
                     }}>Check In</Text>
             </View>
+            </TouchableOpacity>
             <View
             style={{
                 flexDirection:'row',

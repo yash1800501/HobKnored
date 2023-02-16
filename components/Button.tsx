@@ -32,13 +32,12 @@ const Button = ({valueText, action, style}:Props) => {
             backgroundColor:'#3AA8DF',
             alignSelf:'center',
             borderRadius:20,
-
+            padding:10,
           },style]}
             onPress={action}
           >
             <Text style={{
               textAlign:'center',
-              marginVertical:isPoterate? responsiveScreenWidth(1.7) : responsiveScreenHeight(1.7),
               fontSize:16,
               color:'white',
             }}>{valueText}</Text>
