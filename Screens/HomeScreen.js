@@ -111,7 +111,7 @@ const HomeScreen = () => {
           />
         </View>
       </MapMarker>
-      {[...Array(data.result.length)].map((value, index) => (
+      {[...Array(data.result.length)].map((_, index) => (
         <>
           <MapMarker
             title={data.result[index].name}

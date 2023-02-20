@@ -385,7 +385,7 @@ export default imagePath = [
     },
     {
         name:"Sorry",
-        image : require('../'),
+        image : require('../assets/FeelingImojy/sorry.jpeg'),
     },
     {
         name:"Special",

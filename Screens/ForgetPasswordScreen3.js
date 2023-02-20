@@ -10,7 +10,13 @@ import {
 
 import InputTextGradient from "../components/InputTextGradient";
 
+import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
+import { isOpen , isClose } from "../State/action-creators/index";
+
 const ForgetPasswordScreen3 = ({ route, navigation }) => {
+  const dispatch = useDispatch();
+  const isOpen1 = useSelector(state => state.isOpen? state.isOpen : false);
   const [modalVisible, setModalVisible] = useState(true);
 //   !modalVisible? setModalVisible(route.params):undefined
   return (
@@ -42,7 +48,7 @@ const ForgetPasswordScreen3 = ({ route, navigation }) => {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={isOpen1}
         style={{
             flex:1,
             height:responsiveHeight('100%'),
@@ -61,6 +67,7 @@ const ForgetPasswordScreen3 = ({ route, navigation }) => {
         <TouchableOpacity
             onPress={() => {
                 navigation.goBack()
+                dispatch(isClose(false))
             }}
         >
             <Image source={require('../assets/backButton.png')}/>
@@ -114,6 +121,7 @@ const ForgetPasswordScreen3 = ({ route, navigation }) => {
             style={{
                 marginTop:'14%',
                 width:'100%',
+                height:50,
                 shadowColor:'black',
               shadowRadius:4,
               shadowOffset:{
@@ -129,6 +137,7 @@ const ForgetPasswordScreen3 = ({ route, navigation }) => {
             style={{
                 marginTop:10,
                 width:'100%',
+                height:50,
                 shadowColor:'black',
               shadowRadius:4,
               shadowOffset:{
@@ -156,6 +165,7 @@ const ForgetPasswordScreen3 = ({ route, navigation }) => {
             onPress={()=>{
                 setModalVisible(!modalVisible);
                 navigation.navigate('PasswordUpdatedScreen')
+                dispatch(isClose(false))
             }}
           >
             <Text style={{

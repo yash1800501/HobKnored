@@ -73,6 +73,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     width: '100%',
     justifyContent:'center',
+    height:'100%',
+    paddingTop:'5%',
 
     // color:'#C4C4C4',
   }

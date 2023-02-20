@@ -60,6 +60,7 @@ const AddPostScreen = ({navigation}) => {
                         paddingHorizontal: '5%',
                         borderRadius: 8,
                         fontSize: 18,
+                        height:40
                     }}
                 />
             </View>

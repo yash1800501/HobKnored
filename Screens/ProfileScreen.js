@@ -8,15 +8,16 @@ import data from'../Data/FriendsData.json';
 
 import InterestCategory from "../components/InterestCategory";
 import InterestCategoryData from "../Data/InterestCategory.json";
-import { useDispatch, useSelector } from "react-redux";
 
 import {landscape,portrait} from '../State/action-creators/index';
 import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const ProfileScreen = ({ navigation }) => {
     const mode = useSelector(state => state.mode);
-    const [width, setWidth] = React.useState(150)
+    const [width, setWidth] = React.useState(150);
+    const [height, setHeight] = React.useState(1);
     const [isPoterate, setIsPoterate] = React.useState(false);
     const dispatch = useDispatch();
     return (
@@ -24,6 +25,10 @@ const ProfileScreen = ({ navigation }) => {
             style={{
                 height: responsiveScreenHeight(100),
             }}
+            onScroll={(event)=>{
+                setHeight(event.nativeEvent.contentOffset.y);
+            }}
+            scrollEnabled={true}
             onLayout={(native) => {
                 if (responsiveScreenWidth(100) > responsiveScreenHeight(100)) {
                     setIsPoterate(true)
@@ -44,11 +49,11 @@ const ProfileScreen = ({ navigation }) => {
             <ScrollView
                 style={{
                     position: 'absolute',
-                    height: !mode? responsiveScreenWidth(60*2) : responsiveScreenHeight(60),
+                    height: !mode? responsiveScreenWidth(60*2) : (responsiveScreenHeight(60)-(height)),
                     width: isPoterate?  responsiveScreenHeight(width*2): responsiveScreenWidth(width),
                     borderBottomRightRadius: responsiveScreenWidth(1000),
                     right: responsiveScreenWidth(-30),
-                    top: isPoterate? responsiveScreenWidth(-60) : responsiveScreenHeight(-15),
+                    top: isPoterate? responsiveScreenWidth(-60) : responsiveScreenHeight(-15)+height,
                     backgroundColor:'black'
                 }}
                 scrollEnabled={false}
@@ -76,7 +81,7 @@ const ProfileScreen = ({ navigation }) => {
                 </Text>
                 <View
                 style={{
-                    marginTop: isPoterate? responsiveScreenWidth(33) : responsiveScreenHeight(33),
+                    marginTop: isPoterate? responsiveScreenWidth(33) : responsiveScreenHeight(33) - height+height*1.1,
                     flexDirection:'row',
                     alignSelf:'center',
                 }}
@@ -157,7 +162,12 @@ const ProfileScreen = ({ navigation }) => {
                     alignContent: 'center',
                     paddingTop: responsiveScreenHeight(5),
                     marginBottom: responsiveScreenHeight(14),
-                }}>
+                }}
+                // onScroll={(event)=>{
+                //     setHeight(event.nativeEvent.contentOffset.y);
+                //     console.log(height)
+                // }}
+                >
                     <ScrollView 
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}

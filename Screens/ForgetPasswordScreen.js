@@ -5,9 +5,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import InputTextGradient from "../components/InputTextGradient";
 
+import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
+import { isOpen , isClose } from "../State/action-creators/index";
+
 const ForgetPasswordScreen = ({ route, navigation }) => {
-  const {v} = route.params;
-  console.log(v)
+  const dispatch = useDispatch();
+  const isOpen1 = useSelector(state => state.isOpen? state.isOpen : false);
   const [modalVisible, setModalVisible] = useState(true);
 //   !modalVisible? setModalVisible(route.params):undefined
   return (
@@ -38,7 +42,7 @@ const ForgetPasswordScreen = ({ route, navigation }) => {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={isOpen1}
         style={{
             flex:1,
             height:'100%',
@@ -108,6 +112,7 @@ const ForgetPasswordScreen = ({ route, navigation }) => {
             style={{
                 marginTop:'24%',
                 width:'100%',
+                height:50,
                 shadowColor:'black',
               shadowRadius:4,
               shadowOffset:{
@@ -133,6 +138,7 @@ const ForgetPasswordScreen = ({ route, navigation }) => {
           }}
             onPress={()=>{
                 setModalVisible(!modalVisible);
+                dispatch(isClose(false))
                 navigation.navigate('ForgetPasswordScreen2')
             }}
           >

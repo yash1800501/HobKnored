@@ -33,3 +33,21 @@ export const landscape = (state) => {
         })
     }
 }
+
+export const isOpen = (state) => {
+    return(dispatch) => {
+        dispatch({
+            type:'ISOPEN',
+            payload: state
+        })
+    }
+}
+
+export const isClose = (state) => {
+    return(dispatch) => {
+        dispatch({
+            type:'ISCLOSE',
+            payload: state
+        })
+    }
+}

@@ -6,8 +6,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Button from '../components/Button';
 import InputTextGradient from "../components/InputTextGradient";
 
+import {landscape,portrait} from '../State/action-creators/index';
+import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
+import { isOpen, isClose } from "../State/action-creators/index";
+
 const SignUpScreen = ({ route, navigation }) => {
-  const [modalVisible, setModalVisible] = useState(true);
+  const dispatch = useDispatch();
+  const isOpen1 = useSelector(state => state.isOpen? state.isOpen : false);
+  const [modalVisible, setModalVisible] = useState(isOpen1);
 //   !modalVisible? setModalVisible(route.params):undefined
   return (
     <View style={{
@@ -39,7 +46,7 @@ const SignUpScreen = ({ route, navigation }) => {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={isOpen1}
         style={{
             flex:1,
             height:'100%',
@@ -47,14 +54,16 @@ const SignUpScreen = ({ route, navigation }) => {
         }}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
+          // setModalVisible(!modalVisible);
+          dispatch(isClose(false));
         }}
       >
         <View style={{flexDirection:'row', justifyContent:'space-between',marginTop:30,}}>
         
         <TouchableOpacity
             onPress={() => {
-                navigation.goBack()
+                navigation.goBack();
+                dispatch(isClose(true));
             }}
             style={{
 
@@ -119,6 +128,7 @@ const SignUpScreen = ({ route, navigation }) => {
             <InputTextGradient placeholderText=""
             style={{
                 width:'100%',
+                height:50,
                 shadowColor:'black',
               shadowRadius:4,
               shadowOffset:{
@@ -137,6 +147,7 @@ const SignUpScreen = ({ route, navigation }) => {
             <InputTextGradient placeholderText=""
             style={{
                 width:'100%',
+                height:50,
                 shadowColor:'black',
               shadowRadius:4,
               shadowOffset:{
@@ -155,6 +166,7 @@ const SignUpScreen = ({ route, navigation }) => {
             <InputTextGradient placeholderText=""
             style={{
                 width:'100%',
+                height:50,
                 shadowColor:'black',
               shadowRadius:4,
               shadowOffset:{
@@ -174,6 +186,7 @@ const SignUpScreen = ({ route, navigation }) => {
             issecureTextEntry={true}
             style={{
                 width:'100%',
+                height:50,
                 shadowColor:'black',
               shadowRadius:4,
               shadowOffset:{
@@ -197,6 +210,7 @@ const SignUpScreen = ({ route, navigation }) => {
           action={()=>{
             navigation.navigate('SignUpScreen2')
             setModalVisible(false)
+            dispatch(isClose(false));
           }}
           style={{
             width:responsiveWidth(85)
@@ -212,7 +226,8 @@ const SignUpScreen = ({ route, navigation }) => {
             }}
             >Already have an account?<Text style={{color:'white',fontWeight:'400'}} 
             onPress={()=>{
-              navigation.navigate('SignInScreen');}
+              navigation.navigate('SignInScreen');
+            }
             }> Sign in</Text></Text>
             </View>
         </View>

@@ -4,7 +4,12 @@ import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, Tex
 import InputTextGradient from '../components/InputTextGradient';
 import { responsiveScreenHeight, responsiveScreenWidth, responsiveWidth } from 'react-native-responsive-dimensions';
 
+import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
+import { isOpen , isClose } from "../State/action-creators/index";
+
 export default function App({ navigation }) {
+  const dispatch = useDispatch();
   const [isPoterate, setIsPoterate] = React.useState(false);
   return (
     <View
@@ -126,7 +131,8 @@ export default function App({ navigation }) {
                   opacity: 0.5,
                 }}
                   onPress={() => {
-                    navigation.navigate('ForgetPasswordScreen', { v: true })
+                    navigation.navigate('ForgetPasswordScreen')
+                    dispatch(isOpen(true))
                   }}
                 >Forgot password?</Text>
                 <View
@@ -191,6 +197,7 @@ export default function App({ navigation }) {
           >Don’t have an account?<Text style={{ color: 'white', fontWeight: '900' }}
             onPress={() => {
               navigation.navigate('SignUpScreen');
+              dispatch(isOpen(true))
             }
             }> Sign up</Text></Text>
         </View>

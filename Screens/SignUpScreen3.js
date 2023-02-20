@@ -5,9 +5,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import InputTextGradient from "../components/InputTextGradient";
 import Button from '../components/Button';
 
+import {landscape,portrait} from '../State/action-creators/index';
+import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
+import { isOpen, isClose } from "../State/action-creators/index";
+
 
 const SignUp3 = ({ navigation, route }) => {
   const [modalVisible1, setModalVisible1] = useState(true);
+  const dispatch = useDispatch();
+  const isOpen1 = useSelector(state => state.isOpen? false : !state.isOpen);
   return (
     <View style={{
         flex: 1
@@ -36,7 +43,7 @@ const SignUp3 = ({ navigation, route }) => {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible1}
+        visible={!isOpen1}
         style={{
             flex:1,
             height:'100%',
@@ -55,8 +62,9 @@ const SignUp3 = ({ navigation, route }) => {
         >
         <TouchableOpacity
             onPress={() => {
-                navigation.navigate('ForgetPasswordScreen1',{v:true})
+                navigation.navigate('SignUpScreen2')
                 setModalVisible1(!modalVisible1)
+                dispatch(isClose(false))
             }}
         >
             <Image source={require('../assets/backButton.png')}/>
@@ -119,6 +127,7 @@ const SignUp3 = ({ navigation, route }) => {
                 marginHorizontal:'4%',
                 marginTop:30,
                 width:50,
+                height:50,
                 shadowColor:'black',
               shadowRadius:4,
               shadowOffset:{
@@ -137,6 +146,7 @@ const SignUp3 = ({ navigation, route }) => {
                 marginHorizontal:'4%',
                 marginTop:30,
                 width:50,
+                height:50,
                 shadowColor:'black',
               shadowRadius:4,
               shadowOffset:{
@@ -155,6 +165,7 @@ const SignUp3 = ({ navigation, route }) => {
                 marginHorizontal:'4%',
                 marginTop:30,
                 width:50,
+                height:50,
                 shadowColor:'black',
               shadowRadius:4,
               shadowOffset:{
@@ -175,6 +186,7 @@ const SignUp3 = ({ navigation, route }) => {
                 marginHorizontal:'4%',
                 marginTop:30,
                 width:50,
+                height:50,
                 shadowColor:'black',
               shadowRadius:4,
               shadowOffset:{

@@ -6,7 +6,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Button from '../components/Button';
 import InputTextGradient from "../components/InputTextGradient";
 
+import {landscape,portrait} from '../State/action-creators/index';
+import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
+import { isOpen, isClose } from "../State/action-creators/index";
+
 const SignUpScreen2 = ({ route, navigation }) => {
+  const dispatch = useDispatch();
+  const isOpen1 = useSelector(state => state.isOpen? false : !state.isOpen);
   const [modalVisible, setModalVisible] = useState(true);
 //   !modalVisible? setModalVisible(route.params):undefined
   return (
@@ -38,7 +45,7 @@ const SignUpScreen2 = ({ route, navigation }) => {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={isOpen1}
         style={{
             flex:1,
             height:'100%',
@@ -46,7 +53,6 @@ const SignUpScreen2 = ({ route, navigation }) => {
         }}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
         }}
       >
         <View style={{flexDirection:'row', justifyContent:'space-between',marginTop:30,}}>
@@ -54,6 +60,7 @@ const SignUpScreen2 = ({ route, navigation }) => {
         <TouchableOpacity
             onPress={() => {
                 navigation.goBack()
+                dispatch(isOpen(true))
             }}
         >
             <Image source={require('../assets/backButton.png')}/>
@@ -107,6 +114,7 @@ const SignUpScreen2 = ({ route, navigation }) => {
             <InputTextGradient placeholderText=""
             style={{
                 width:'100%',
+                height:50,
                 shadowColor:'black',
               shadowRadius:4,
               shadowOffset:{
@@ -127,6 +135,7 @@ const SignUpScreen2 = ({ route, navigation }) => {
           action={()=>{
             navigation.navigate('SignUpScreen3')
             setModalVisible(false)
+            dispatch(isOpen(true))
           }}
           style={{
             width:responsiveWidth(85)

@@ -35,28 +35,36 @@ const NavigationScreen = () => {
                 }}
             >
                 <Screen
+                    key={1}
                     name="StartScreen"
                     component={StartScreen}/>
                 <Screen
+                    key={2}
                     name="SignInScreen"
                     component={SignInScreen}/>
                 <Screen
+                    key={3}
                     name="PhotoSelectedScreen"
                     component={PhotoSelectedScreen}/>
                 <Screen
+                    key={4}
                     name="ForgetPasswordScreen"
                     component={ForgetPasswordScreen}/>
                 <Screen
+                    key={5}
                     name="ForgetPasswordScreen2"
                     component={ForgetPasswordScreen2}/>
                 <Screen
                     name="ForgetPasswordScreen3"
+                    key={6}
                     component={ForgetPasswordScreen3}/>
                 <Screen
                     name="PasswordUpdatedScreen"
+                    key={7}
                     component={PasswordUpdatedScreen}/>
                 <Screen
                     name="SignUpScreen"
+                    key={8}
                     component={SignUpScreen}
                     // initialParams={{open:true}}
                     />
@@ -67,10 +75,12 @@ const NavigationScreen = () => {
                         name="SignUpScreen3"
                         component={SignUpScreen3}/>
                 <Screen
+                        key={7}
                         name="HomeScreen"
                         component={HomeScreen}/>
                 <Screen
                         name="BottomTabBar"
+                        key={8}
                         component={BottomTabBar}/>
                 <Screen
                         name="AddPostScreen1"
