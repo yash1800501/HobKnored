@@ -25,7 +25,7 @@ import { responsiveHeight, responsiveScreenFontSize, responsiveScreenHeight, res
         style={[
           styles.number,
           {
-            backgroundColor: isSelected ? '#3AA8DF' : 'white',
+            backgroundColor: isSelected ? '#3AA8DF' : undefined,
   
             borderColor: isSelected ? '#3AA8DF' : '#3AA8DF',
           },
@@ -37,15 +37,15 @@ import { responsiveHeight, responsiveScreenFontSize, responsiveScreenHeight, res
             <Text
             style={[{
                 color: isSelected ? 'white' : '#3AA8DF',
-                fontWeight: '700',
-                fontSize: useResponsiveScreenFontSize(2),
+                // fontWeight: '700',
+                fontSize: useResponsiveScreenFontSize(1.8),
                },style]}
             >{imoji}</Text>
             <Text
               style={[{
                 color: isSelected ? 'white' : '#3AA8DF',
-                fontWeight: '700',
-                fontSize: useResponsiveScreenFontSize(2),
+                // fontWeight: '700',
+                fontSize: useResponsiveScreenFontSize(1.8),
                },style]}>
               {text}
             </Text>
@@ -58,22 +58,22 @@ import { responsiveHeight, responsiveScreenFontSize, responsiveScreenHeight, res
   
   const styles = StyleSheet.create({
     number: {
-      margin: 5,
-      padding:5,
+      margin:4,
+      padding:4,
     //   width: responsiveScreenWidth(60),
     //   height: responsiveScreenHeight(5),
       borderRadius: 20,
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
-      shadowColor: '#000',
-      shadowOffset: {
-        width: 5,
-        height: 2,
-      },
-      shadowOpacity: 0.65,
-      shadowRadius: 3,
-      elevation: 15,
+      // shadowColor: '#000',
+      // shadowOffset: {
+      //   width: 5,
+      //   height: 2,
+      // },
+      // shadowOpacity: 0.65,
+      // shadowRadius: 3,
+      // elevation: 15,
     },
     innerText:{
       fontSize:16,

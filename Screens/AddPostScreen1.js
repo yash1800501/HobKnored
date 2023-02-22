@@ -4,7 +4,6 @@ import { responsiveScreenHeight, responsiveScreenWidth } from "react-native-resp
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/Button";
 import InputTextGradient from "../components/InputTextGradient";
-
 import {landscape,portrait} from '../State/action-creators/index';
 import data from '../Data/FriendsData.json'
 
@@ -92,6 +91,7 @@ const AddPostScreen = ({navigation}) => {
                 alignSelf:'center',
                 marginTop:20,
             }}
+            isMultyLine={true}
             />
             <TouchableOpacity
             onPress={() => {

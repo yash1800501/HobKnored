@@ -26,9 +26,16 @@ const ProfileScreen = ({ navigation }) => {
                 height: responsiveScreenHeight(100),
             }}
             onScroll={(event)=>{
+                if(event.nativeEvent.contentOffset.y>0){
                 setHeight(event.nativeEvent.contentOffset.y);
+                console.log(height)
+                }
+                else
+                setHeight(1)
             }}
             scrollEnabled={true}
+            scrollToOverflowEnabled={false}
+            showsVerticalScrollIndicator={false}
             onLayout={(native) => {
                 if (responsiveScreenWidth(100) > responsiveScreenHeight(100)) {
                     setIsPoterate(true)
@@ -51,7 +58,7 @@ const ProfileScreen = ({ navigation }) => {
                     position: 'absolute',
                     height: !mode? responsiveScreenWidth(60*2) : (responsiveScreenHeight(60)-(height)),
                     width: isPoterate?  responsiveScreenHeight(width*2): responsiveScreenWidth(width),
-                    borderBottomRightRadius: responsiveScreenWidth(1000),
+                    borderBottomRightRadius: responsiveScreenWidth(1000)-(height*13),
                     right: responsiveScreenWidth(-30),
                     top: isPoterate? responsiveScreenWidth(-60) : responsiveScreenHeight(-15)+height,
                     backgroundColor:'black'
@@ -61,18 +68,18 @@ const ProfileScreen = ({ navigation }) => {
                 <Image source={require('../assets/bg.png')}
                     style={{
                         width: responsiveScreenWidth(100),
-                        height: isPoterate? responsiveScreenWidth(60) :responsiveHeight(50),
+                        height: isPoterate? responsiveScreenWidth(60) :responsiveHeight(50)-(height),
                         position: 'absolute',
                         right: responsiveScreenWidth(30),
                         top: isPoterate? responsiveScreenWidth(60) : responsiveHeight(10),
                     }}
                 />
             </ScrollView>
-                <Text
+            <Text
                     style={{
                         position: 'absolute',
                         left: responsiveScreenWidth(10),
-                        top: responsiveScreenWidth(10),
+                        top: responsiveScreenWidth(15),
                         fontSize: responsiveScreenFontSize(4),
                         fontWeight: '600',
                     }}
@@ -106,24 +113,29 @@ const ProfileScreen = ({ navigation }) => {
                     borderRadius: 100,
                 }}>
                     <Image source={{uri:data.result[1].image}}
-                        style={
-                            {
-                              width: isPoterate? responsiveScreenHeight(40) : responsiveScreenWidth(30),
-                              height: isPoterate? responsiveScreenHeight(40) : responsiveScreenWidth(30),
-                              borderRadius: 100,
-                              marginTop: isPoterate? responsiveScreenWidth(12) : undefined
-                            }
-                          }
+                        style=
+                        {{
+                            width: isPoterate? responsiveScreenHeight(40) : responsiveScreenWidth(30),
+                            height: isPoterate? responsiveScreenHeight(40) : responsiveScreenWidth(30),
+                            borderRadius: 100,
+                            marginTop: isPoterate? responsiveScreenWidth(12) : undefined
+                        }}
                     />
                 </View>
+                <TouchableOpacity
+            onPress={() => {
+                navigation.navigate("EditProfile");
+            }}
+            >
                 <Image source={require('../assets/edit.png')}
                     style={{
                         height: isPoterate? responsiveScreenWidth(10) : responsiveScreenHeight(8),
                         width: isPoterate? responsiveScreenHeight(20) : responsiveScreenWidth(16),
                         marginHorizontal: isPoterate? responsiveScreenWidth(1.5) : responsiveScreenHeight(1.5),
-                        marginTop:isPoterate? responsiveScreenWidth(8) : -responsiveScreenHeight(2),
+                        marginTop:isPoterate? responsiveScreenWidth(8) : -responsiveScreenHeight(2)+height/5,
                     }}
                 />
+                </TouchableOpacity>
                 </View>
                 <View
                 style={{

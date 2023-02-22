@@ -4,10 +4,16 @@ import {Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from 'rea
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import { responsiveScreenHeight, responsiveScreenWidth } from "react-native-responsive-dimensions";
 
-
+import ActionSheet from 'react-native-actionsheet';
 
 const AddPostPhoto = ({navigation}) => {
-    const [imageUri, setimageUri] = React.useState('')
+    let actionSheet = React.useRef();
+    var optionArray = ['Photo Library', 'Camera', 'Cancel'];
+    const showActionSheet = () => {
+      //To show the Bottom ActionSheet
+      actionSheet.current.show();
+    };
+    const [imageUri, setimageUri] = React.useState('');
     const [isPoterate, setIsPoterate] = React.useState(false);
     const [arrayCount,setArrayCount] = React.useState(0);
     var [selectedArray, setselectedArray] = React.useState(Array());
@@ -43,6 +49,33 @@ const AddPostPhoto = ({navigation}) => {
             }
         });
     };
+    const openCamera = () => {
+      let option = {
+          storageOption: {
+              path : 'image',
+              mediaType: 'photo',
+          },
+          includeBase64: true,
+      }
+      launchCamera(option,response => {
+          console.log('Response = ', response);
+          if(response.didCancel) {
+              console.log('User cancle the Image Picker');
+          }
+          else if(response.error) {
+              console.log('ImagePicker error = ', response.error);
+          }
+          else if(response.customButtom) {
+              console.log('User tab on customButton', response.customButtom);
+          }
+          else if(response.assets) {
+            const source = {uri: response.assets[0].uri};
+            setimageUri(source);
+            setselectedArray(selectedArray.concat(imageUri));
+            setArrayCount(arrayCount+1);
+        }
+      });
+  };
   return (
     <SafeAreaView
       onLayout={native => {
@@ -113,7 +146,8 @@ const AddPostPhoto = ({navigation}) => {
                 // {
                 //     setArrayCount(arrayCount+1);
                 // }
-                openGallery();
+                showActionSheet();
+                
                 console.log(selectedArray);
               }}>
               +
@@ -121,6 +155,30 @@ const AddPostPhoto = ({navigation}) => {
           </View>
         </View>
       </ScrollView>
+      <ActionSheet
+          ref={actionSheet}
+          // Title of the Bottom Sheet
+          title={'Profile Photo'}
+          // Options Array to show in bottom sheet
+          options={optionArray}
+          // Define cancel button index in the option array
+          // This will take the cancel option in bottom
+          // and will highlight it
+          cancelButtonIndex={2}
+          // Highlight any specific option
+          destructiveButtonIndex={3}
+          onPress={(index) => {
+            // Clicking on the option will give you alert
+            if(index === 0)
+            {
+              openGallery();
+            }
+            else if(index === 1)
+            {
+              openCamera();
+            }
+          }}
+        />
     </SafeAreaView>
   );
 };

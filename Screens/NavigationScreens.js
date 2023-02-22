@@ -20,6 +20,7 @@ import AddPostPhoto from "./AddPostPhoto";
 import AddPostTagFriend from "./AddPostTagFriend";
 import AddPostFeelings from "./AddPostFeelings";
 import AddPostAddLocation from "./AddPostAddLocation";
+import EditProfile from "./EditProfile";
 
 const {Navigator, Screen} = createNativeStackNavigator();
 const NavigationScreen = () => {
@@ -99,6 +100,10 @@ const NavigationScreen = () => {
                 <Screen
                     name="AddPostAddLocation"
                     component={AddPostAddLocation}
+                />
+                <Screen
+                    name="EditProfile"
+                    component={EditProfile}
                 />
             </Navigator>
         </NavigationContainer>

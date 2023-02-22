@@ -13,15 +13,18 @@ import { responsiveScreenHeight } from "react-native-responsive-dimensions";
 type Props = {
   style?: StyleProp<ViewStyle>;
   issecureTextEntry: boolean;
+  isMultyLine: boolean;
   placeholderText: string;
   inputStyle: StyleProp<ViewStyle>;
   reference: () => {};
   keyType: string;
   keyPressAction: () => {};
   maxl: number;
+  returnKeyType:string|undefined;
+  keyboardType:string;
 };
 
-const InputTextGradient = ({ style, issecureTextEntry, placeholderText, inputStyle, reference, keyPressAction, keyType, maxl }: Props) => {
+const InputTextGradient = ({ style, issecureTextEntry, placeholderText, keyboardType, inputStyle, returnKeyType, isMultyLine, reference, keyPressAction, keyType, maxl }: Props) => {
   return (
 
     <LinearGradient colors={['#DBE0E7', '#F8FBFF']} style={[styles.LinearGradientStyle, style]} >
@@ -35,9 +38,10 @@ const InputTextGradient = ({ style, issecureTextEntry, placeholderText, inputSty
           secureTextEntry={issecureTextEntry}
           ref={reference}
           onKeyPress={keyPressAction}
-          returnKeyType="next"
+          returnKeyType={returnKeyType}
           maxLength={maxl}
-          multiline={true}
+          multiline={isMultyLine}
+          keyboardType = {keyboardType}
         />
 
       </View>
@@ -57,11 +61,12 @@ const styles = StyleSheet.create({
     //   justifyContent: 'center',
     //   alignItems: 'center',
     //   backgroundColor : '#fff'
-
+    margin:10,
   },
 
   LinearGradientStyle: {
     borderRadius: 10,
+    margin:5,
   },
 
   ChildViewStyle: {
@@ -74,7 +79,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent:'center',
     height:'100%',
-    paddingTop:'5%',
+    paddingTop:'1%',
 
     // color:'#C4C4C4',
   }

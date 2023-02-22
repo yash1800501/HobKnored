@@ -5,8 +5,8 @@ import {
   responsiveScreenHeight,
   responsiveScreenWidth,
 } from 'react-native-responsive-dimensions';
-import ComboBox from '../components/ComboBox';
 import ProgressBar from '../components/ProgressBar';
+import DropDown from '../components/DropDown';
 
 const SettingScreen = ({navigation}) => {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -14,8 +14,8 @@ const SettingScreen = ({navigation}) => {
   const [isEnabled1, setIsEnabled1] = useState(false);
   const toggleSwitch1 = () => setIsEnabled1(previousState => !previousState);
   const [isPoterate, setIsPoterate] = React.useState(false);
-  var x;
-  var y;
+  let x = 0;
+  let y = 0;
   return (
     <ScrollView
       style={{
@@ -121,8 +121,8 @@ const SettingScreen = ({navigation}) => {
             borderRadius: 20,
           }}
           onTouchStart={native => {
-            x = parseInt(native.nativeEvent.locationX);
-            y = parseInt(native.nativeEvent.locationY);
+            x = Number(native.nativeEvent.locationX);
+            y = Number(native.nativeEvent.locationY);
             console.log(x, y);
           }}>
           <View
@@ -132,7 +132,8 @@ const SettingScreen = ({navigation}) => {
               width: '100%',
               height:'100%'
             }}>
-            <ComboBox x={x} y={y} />
+            {/* <ComboBox x={x} y={y} /> */}
+            <DropDown/>
           </View>
         </View>
         <Text
